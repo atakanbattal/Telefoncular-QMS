@@ -70,11 +70,7 @@ const BenchmarkModule = () => {
             setCategories(categoriesRes.data || []);
 
             if (!categoriesRes.data || categoriesRes.data.length === 0) {
-                toast({
-                    variant: 'destructive',
-                    title: 'Kategoriler Bulunamadı',
-                    description: 'Lütfen Supabase SQL Editor\'de benchmark kategorilerini oluşturun.'
-                });
+                console.warn('benchmark_categories boş: migration veya SQL ile varsayılan kategoriler eklenmeli.');
             }
 
             // Sonra diğer verileri yükle
