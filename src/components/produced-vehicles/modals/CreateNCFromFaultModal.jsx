@@ -14,7 +14,7 @@ const CreateNCFromFaultModal = ({ isOpen, setIsOpen, fault, vehicle, onOpenNCFor
       source_inspection_fault_id: fault.id,
       title: `${vehicle.vehicle_type} - ${fault.description}`,
       description: `Araç Şasi No: ${vehicle.chassis_no}\nAraç Seri No: ${vehicle.serial_no}\nHata: ${fault.description} (Adet: ${fault.quantity})`,
-      department: fault.department?.name,
+      department: fault.department?.name ?? fault.department?.unit_name,
       requesting_unit: 'Kalite Kontrol',
       source: 'vehicle_fault'
     };

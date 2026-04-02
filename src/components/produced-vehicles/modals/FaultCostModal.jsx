@@ -62,7 +62,7 @@ const FaultCostModal = ({ isOpen, setIsOpen, vehicle, faults, onSuccess }) => {
         allFaults.forEach(fault => {
             const duration = parseFloat(faultDurations[fault.id]) || 0;
             const qualityDuration = parseFloat(qualityControlDurations[fault.id]) || 0;
-            const departmentName = fault.department?.name || fault.department_name || 'Üretim';
+            const departmentName = fault.department?.name || fault.department?.unit_name || fault.department_name || 'Üretim';
             const unitCost = getUnitCost(departmentName);
             const faultCost = duration * unitCost;
             const qualityControlCost = qualityDuration * qualityControlUnitCost;
@@ -300,7 +300,7 @@ const FaultCostModal = ({ isOpen, setIsOpen, vehicle, faults, onSuccess }) => {
                     const calc = calculations[fault.id] || {};
                     const duration = calc.duration || 0;
                     const qualityDuration = calc.qualityDuration || 0;
-                    const departmentName = calc.departmentName || fault.department?.name || fault.department_name || 'Üretim';
+                    const departmentName = calc.departmentName || fault.department?.name || fault.department?.unit_name || fault.department_name || 'Üretim';
                     const unitCost = calc.unitCost || getUnitCost(departmentName);
                     const faultCost = calc.faultCost || (duration * unitCost);
                     const qualityControlCost = calc.qualityControlCost || (qualityDuration * qualityControlUnitCost);
@@ -446,7 +446,7 @@ const FaultCostModal = ({ isOpen, setIsOpen, vehicle, faults, onSuccess }) => {
                     const calc = calculations[fault.id] || {};
                     const duration = calc.duration || 0;
                     const qualityDuration = calc.qualityDuration || 0;
-                    const departmentName = calc.departmentName || fault.department?.name || fault.department_name || 'Üretim';
+                    const departmentName = calc.departmentName || fault.department?.name || fault.department?.unit_name || fault.department_name || 'Üretim';
                     const unitCost = calc.unitCost || getUnitCost(departmentName);
                     const faultCost = calc.faultCost || (duration * unitCost);
                     const qualityControlCost = calc.qualityControlCost || (qualityDuration * qualityControlUnitCost);
@@ -628,7 +628,7 @@ const FaultCostModal = ({ isOpen, setIsOpen, vehicle, faults, onSuccess }) => {
                             <>
                                 {allFaults.map(fault => {
                                     const calc = calculations[fault.id] || {};
-                                    const departmentName = fault.department?.name || fault.department_name || 'Üretim';
+                                    const departmentName = fault.department?.name || fault.department?.unit_name || fault.department_name || 'Üretim';
                                     const unitCost = getUnitCost(departmentName);
 
                                     return (

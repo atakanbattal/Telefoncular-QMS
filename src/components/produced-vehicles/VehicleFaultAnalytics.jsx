@@ -163,7 +163,7 @@ const DurationTooltip = ({ active, payload, label }) => {
             try {
                 // Tüm kayıtları paginated olarak çek (1000'er kayıt)
                 const [allFaults, allVehicles, allDepts, allTimeline] = await Promise.all([
-                    fetchAllPages('quality_inspection_faults', `*, department:production_departments(id, name), inspection:quality_inspections(vehicle_type, serial_no, id), category:fault_categories(name)`),
+                    fetchAllPages('quality_inspection_faults', `*, department:cost_settings(id, unit_name), inspection:quality_inspections(vehicle_type, serial_no, id), category:fault_categories(name)`),
                     fetchAllPages('quality_inspections', 'id, created_at'),
                     supabase.from('production_departments').select('id, name').then(r => r.data || []),
                     fetchAllPages('vehicle_timeline_events', '*')
@@ -370,7 +370,7 @@ const DurationTooltip = ({ active, payload, label }) => {
                 }
                 totalFaults += quantity;
 
-                const deptName = fault.department?.name || 'Bilinmeyen';
+                const deptName = fault.department?.name || fault.department?.unit_name || 'Bilinmeyen';
                 if (departmentStats[deptName]) {
                     departmentStats[deptName].totalFaults += quantity;
                     if (fault.inspection?.id) departmentStats[deptName].faultyVehicles.add(fault.inspection.id);
@@ -490,7 +490,7 @@ const DurationTooltip = ({ active, payload, label }) => {
             let title = '';
 
             if(type === 'department'){
-                filteredFaultsList = filteredData.faults.filter(f => (f.department?.name || 'Bilinmeyen') === name);
+                filteredFaultsList = filteredData.faults.filter(f => (f.department?.name || f.department?.unit_name || 'Bilinmeyen') === name);
                 title = `${name} Departmanı Hata Detayları`;
             } else if (type === 'category') {
                 filteredFaultsList = filteredData.faults.filter(f => (f.category?.name || 'Kategorisiz') === name);

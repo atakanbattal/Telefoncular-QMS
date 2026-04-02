@@ -176,7 +176,7 @@ const NonconformityModule = ({ onOpenNCForm, onOpenNCView }) => {
       .select('*')
       .order('created_at', { ascending: true })
       .limit(1)
-      .single();
+      .maybeSingle();
     if (data) setSettings(data);
   }, []);
 

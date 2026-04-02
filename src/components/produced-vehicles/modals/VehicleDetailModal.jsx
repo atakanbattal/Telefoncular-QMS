@@ -197,7 +197,7 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
                         .from('quality_inspection_faults')
                         .select(`
                             *,
-                            department:production_departments(id, name),
+                            department:cost_settings(id, unit_name),
                             category:fault_categories(id, name)
                         `)
                         .eq('inspection_id', vehicle.id)

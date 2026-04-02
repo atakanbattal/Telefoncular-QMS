@@ -203,7 +203,7 @@ const loadSourceRecords = async (sourceType, sourceId = null) => {
                 .from('quality_inspection_faults')
                 .select(`
                     *,
-                    department:production_departments(name),
+                    department:cost_settings(unit_name),
                     category:fault_categories(name),
                     inspection:quality_inspections(vehicle_type, serial_no, chassis_no, customer_name)
                 `);

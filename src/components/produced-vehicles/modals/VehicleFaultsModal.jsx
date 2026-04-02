@@ -115,7 +115,7 @@ const VehicleFaultsModal = ({ isOpen, setIsOpen, vehicle, departments, onUpdate,
         try {
             const { data, error } = await supabase
                 .from('quality_inspection_faults')
-                .select('*, department:production_departments(name), category:fault_categories(name)')
+                .select('*, department:cost_settings(unit_name), category:fault_categories(name)')
                 .eq('inspection_id', vehicle.id)
                 .order('created_at', { ascending: false });
 
@@ -142,7 +142,7 @@ const VehicleFaultsModal = ({ isOpen, setIsOpen, vehicle, departments, onUpdate,
                 .from('quality_inspections')
                 .select(`
                         *,
-                        quality_inspection_faults(*, department:production_departments(name)),
+                        quality_inspection_faults(*, department:cost_settings(unit_name)),
                         vehicle_timeline_events(*)
                     `)
                 .eq('id', vehicle.id)
@@ -269,7 +269,7 @@ const VehicleFaultsModal = ({ isOpen, setIsOpen, vehicle, departments, onUpdate,
                 is_resolved: false,
                 user_id: user?.id || null // Hatayı giren kullanıcının ID'sini kaydet
             })
-            .select(`*, department:production_departments(name), category:fault_categories(name)`)
+            .select(`*, department:cost_settings(unit_name), category:fault_categories(name)`)
             .single();
 
         if (error) {
@@ -341,7 +341,7 @@ const VehicleFaultsModal = ({ isOpen, setIsOpen, vehicle, departments, onUpdate,
                 resolved_at: !currentStatus ? new Date().toISOString() : null
             })
             .eq('id', faultId)
-            .select(`*, department:production_departments(name), category:fault_categories(name)`)
+            .select(`*, department:cost_settings(unit_name), category:fault_categories(name)`)
             .single();
 
         if (error) {
@@ -376,7 +376,7 @@ const VehicleFaultsModal = ({ isOpen, setIsOpen, vehicle, departments, onUpdate,
                 arge_approved_by: !currentStatus ? profile.id : null
             })
             .eq('id', faultId)
-            .select(`*, department:production_departments(name), category:fault_categories(name)`)
+            .select(`*, department:cost_settings(unit_name), category:fault_categories(name)`)
             .single();
 
         if (error) {
@@ -422,7 +422,7 @@ const VehicleFaultsModal = ({ isOpen, setIsOpen, vehicle, departments, onUpdate,
                 quantity: editFaultData.quantity,
             })
             .eq('id', editingFault.id)
-            .select(`*, department:production_departments(name), category:fault_categories(name)`)
+            .select(`*, department:cost_settings(unit_name), category:fault_categories(name)`)
             .single();
 
         if (error) {

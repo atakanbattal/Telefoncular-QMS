@@ -27,7 +27,10 @@ export const enrichVehicleFaultRecord = (fault, { categoriesById = {}, departmen
     if (!fault) return fault;
 
     const category = fault.category || categoriesById[String(fault.category_id)] || fault.fault_category || null;
-    const department = fault.department || departmentsById[String(fault.department_id)] || null;
+    const rawDept = fault.department || departmentsById[String(fault.department_id)] || null;
+    const department = rawDept
+        ? { ...rawDept, name: rawDept.name ?? rawDept.unit_name }
+        : null;
 
     return {
         ...fault,
@@ -191,7 +194,7 @@ const fetchVehicleFaults = async (supabase, vehicleId) => {
         .from('quality_inspection_faults')
         .select(`
             *,
-            department:production_departments(name),
+            department:cost_settings(unit_name),
             category:fault_categories(name)
         `)
         .eq('inspection_id', vehicleId)
@@ -432,7 +435,7 @@ export const backfillVehicleFaultNonconformities = async ({ supabase, reporterNa
             .from('quality_inspection_faults')
             .select(`
                 *,
-                department:production_departments(name),
+                department:cost_settings(unit_name),
                 category:fault_categories(name),
                 inspection:quality_inspections(id, serial_no, chassis_no, vehicle_type, customer_name)
             `)
