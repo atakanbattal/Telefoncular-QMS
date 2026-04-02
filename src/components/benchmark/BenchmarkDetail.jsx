@@ -16,6 +16,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { supabase } from '@/lib/customSupabaseClient';
 import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
+import { PDF_COMPANY_HEADLINE } from '@/lib/appBranding';
 
 const BenchmarkDetail = ({
     isOpen,
@@ -583,7 +584,7 @@ const BenchmarkDetail = ({
         <div class="page-content">
         <div class="header">
             <div class="header-left">
-                <h1>KADEME A.Ş.</h1>
+                <h1>{PDF_COMPANY_HEADLINE}</h1>
                 <p>Kalite Yönetim Sistemi</p>
             </div>
             <div class="header-right">
@@ -659,7 +660,7 @@ const BenchmarkDetail = ({
         </div>
         <div class="footer">
             <div class="footer-left">
-                <div>KADEME A.Ş.</div>
+                <div>{PDF_COMPANY_HEADLINE}</div>
                 <div style="font-size: 10px; margin-top: 2px;">Kalite Yönetim Sistemi</div>
             </div>
             <div class="footer-center">

@@ -11,7 +11,7 @@ import { CalendarIcon, FileText } from 'lucide-react';
 import { format, subDays, subMonths, startOfMonth, endOfMonth, startOfYear, endOfYear } from 'date-fns';
 import { tr } from 'date-fns/locale';
 import { generateVehicleSummaryReport } from '@/lib/pdfGenerator';
-import { imageUrlToBase64, logoCache, preloadLogos, getLogoUrl } from '@/lib/reportUtils';
+import { preloadLogos } from '@/lib/reportUtils';
 import { MultiSelectPopover } from '@/components/ui/multi-select-popover';
 
 const VehicleReportModal = ({ isOpen, setIsOpen, vehicles, filters }) => {
@@ -181,18 +181,8 @@ const VehicleReportModal = ({ isOpen, setIsOpen, vehicles, filters }) => {
 
         setIsGenerating(true);
         try {
-            // Logoları önceden yükle (cache'de yoksa)
             await preloadLogos();
-            
-            // Logo'yu base64'e çevir (cache'de yoksa) - önce yerel dosyadan çek (logo.png)
-            const localLogoUrl = getLogoUrl('logo.png');
-            const logoUrl = logoCache[localLogoUrl] 
-                ? localLogoUrl
-                : (logoCache[getLogoUrl('kademe-logo.png')] 
-                    ? getLogoUrl('kademe-logo.png')
-                    : 'https://horizons-cdn.hostinger.com/9e8dec00-2b85-4a8b-aa20-e0ad1becf709/74ae5781fdd1b81b90f4a685fee41c72.png');
-            await imageUrlToBase64(logoUrl);
-            
+
             const vehicleIds = filteredVehicles.map(v => v.id);
             
             // Paginated fetch ile tüm verileri çek

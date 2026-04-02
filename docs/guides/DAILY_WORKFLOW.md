@@ -30,7 +30,7 @@ git checkout -b feature/feature-name
 # → Hot-reload otomatik
 
 # 3. Supabase Dashboard'ı aç (gerekirse)
-# https://app.supabase.com/project/rqnvoatirfczpklaamhf
+# https://app.supabase.com/project/ryvczrubujzlanvqiqlk
 # → Tables, SQL Editor, Auth yapılandırması
 
 # 4. Commit & Push
@@ -156,7 +156,7 @@ netlify --prod
 ```
 🖥️  Local Dev: http://localhost:3000
 🌐 Production: https://kademekalite.online
-📊 Supabase: https://app.supabase.com/project/rqnvoatirfczpklaamhf
+📊 Supabase: https://app.supabase.com/project/ryvczrubujzlanvqiqlk
 💻 Netlify: https://netlify.com/dashboard
 📝 GitHub: https://github.com/YOUR-USERNAME/kademe-kalite
 ```

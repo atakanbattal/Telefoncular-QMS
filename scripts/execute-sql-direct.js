@@ -12,14 +12,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Supabase bağlantı bilgileri
-const supabaseUrl = 'https://rqnvoatirfczpklaamhf.supabase.co';
+const supabaseUrl = 'https://ryvczrubujzlanvqiqlk.supabase.co';
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || process.env.VITE_SUPABASE_SERVICE_KEY;
 
 if (!supabaseServiceKey) {
     console.error('❌ HATA: Service Role Key bulunamadı!');
     console.error('');
     console.error('Service Role Key\'i Supabase Dashboard\'dan alın:');
-    console.error('  1. https://app.supabase.com/project/rqnvoatirfczpklaamhf/settings/api');
+    console.error('  1. https://app.supabase.com/project/ryvczrubujzlanvqiqlk/settings/api');
     console.error('  2. "service_role" (secret) key\'i kopyalayın');
     console.error('');
     console.error('Sonra şu komutu çalıştırın:');
@@ -29,7 +29,7 @@ if (!supabaseServiceKey) {
     console.error('VEYA');
     console.error('');
     console.error('Supabase Dashboard\'da direkt çalıştırın:');
-    console.error('  https://app.supabase.com/project/rqnvoatirfczpklaamhf/sql');
+    console.error('  https://app.supabase.com/project/ryvczrubujzlanvqiqlk/sql');
     console.error('');
     console.error('SQL dosyası: scripts/add-eight-d-progress-complete.sql');
     process.exit(1);
@@ -165,7 +165,7 @@ async function executeSQL() {
         console.error('');
         console.error('📝 Çözüm:');
         console.error('Supabase Dashboard\'da direkt çalıştırın:');
-        console.error('  1. https://app.supabase.com/project/rqnvoatirfczpklaamhf/sql');
+        console.error('  1. https://app.supabase.com/project/ryvczrubujzlanvqiqlk/sql');
         console.error('  2. SQL Editor\'ü açın');
         console.error('  3. scripts/add-eight-d-progress-complete.sql dosyasının içeriğini yapıştırın');
         console.error('  4. Run butonuna tıklayın');

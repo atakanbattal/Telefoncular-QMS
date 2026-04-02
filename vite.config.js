@@ -256,6 +256,11 @@ export default defineConfig({
 		alias: {
 			'@': path.resolve(__dirname, './src'),
 		},
+		// Aynı React'in iki kopyası Context'in (DataProvider/useData) eşleşmemesine yol açabilir
+		dedupe: ['react', 'react-dom', 'react-router-dom'],
+	},
+	optimizeDeps: {
+		include: ['react', 'react-dom', 'react-router-dom'],
 	},
 	build: {
 		rollupOptions: {

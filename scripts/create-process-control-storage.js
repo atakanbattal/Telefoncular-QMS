@@ -4,7 +4,7 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = 'https://rqnvoatirfczpklaamhf.supabase.co';
+const supabaseUrl = 'https://ryvczrubujzlanvqiqlk.supabase.co';
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJxbnZvYXRpcmZjenBrbGFhbWhmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NjgxNDgxMiwiZXhwIjoyMDcyMzkwODEyfQ.2YJmKcpk1kHbAOc-H9s37NbUY74QJuqIYB1Z2ssusa4';
 
 const supabase = createClient(supabaseUrl, supabaseServiceKey, {
@@ -94,7 +94,7 @@ async function createStorageBucket() {
         console.error('❌ Storage bucket oluşturma hatası:', error.message);
         console.error('');
         console.error('💡 Alternatif: Supabase Dashboard\'dan manuel oluşturun:');
-        console.error('   1. https://app.supabase.com/project/rqnvoatirfczpklaamhf/storage/buckets');
+        console.error('   1. https://app.supabase.com/project/ryvczrubujzlanvqiqlk/storage/buckets');
         console.error('   2. "New bucket" butonuna tıklayın');
         console.error('   3. Name: process_control');
         console.error('   4. Public: false (kapalı)');

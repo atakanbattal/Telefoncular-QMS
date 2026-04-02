@@ -6,5 +6,5 @@
 set -e
 cd "$(dirname "$0")/.."
 echo "Deploying manage-user Edge Function..."
-npx supabase functions deploy manage-user --project-ref rqnvoatirfczpklaamhf
+npx supabase functions deploy manage-user --project-ref ryvczrubujzlanvqiqlk
 echo "Deploy tamamlandı."

@@ -7,6 +7,7 @@ import liberationSansBoldUrl from 'pdfjs-dist/standard_fonts/LiberationSans-Bold
 import liberationSansItalicUrl from 'pdfjs-dist/standard_fonts/LiberationSans-Italic.ttf?url';
 import liberationSansBoldItalicUrl from 'pdfjs-dist/standard_fonts/LiberationSans-BoldItalic.ttf?url';
 import { getAttachmentDisplayName } from '@/lib/utils';
+import { PDF_COMPANY_HEADLINE, PDF_COMPANY_TAGLINE, PDF_LOGO_FILES } from '@/lib/appBranding';
 
 const PAGE_MARGIN_X = 14;
 const PAGE_MARGIN_TOP = 34;
@@ -88,15 +89,18 @@ const getFontBase64 = async (style) => {
 
 const getLogoDataUrl = async () => {
     if (!logoDataUrlPromise) {
-        logoDataUrlPromise = fetch('/logo.png')
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Logo yüklenemedi.');
+        logoDataUrlPromise = (async () => {
+            for (const f of PDF_LOGO_FILES) {
+                try {
+                    const response = await fetch(`/${f}`);
+                    if (!response.ok) continue;
+                    return await blobToDataUrl(await response.blob());
+                } catch {
+                    /* try next */
                 }
-                return response.blob();
-            })
-            .then(blobToDataUrl)
-            .catch(() => null);
+            }
+            return null;
+        })();
     }
 
     return logoDataUrlPromise;
@@ -157,11 +161,11 @@ const addPageChrome = (doc, reportConfig, pdfAssets) => {
     doc.setFont(fontName, 'normal');
     doc.setFontSize(18);
     doc.setTextColor(17, 24, 39);
-    doc.text('KADEME A.Ş.', PAGE_MARGIN_X + 18, 13);
+    doc.text(PDF_COMPANY_HEADLINE, PAGE_MARGIN_X + 18, 13);
 
     doc.setFontSize(9);
     doc.setTextColor(100, 116, 139);
-    doc.text('Kalite Yönetim Sistemi', PAGE_MARGIN_X + 18, 19);
+    doc.text(PDF_COMPANY_TAGLINE, PAGE_MARGIN_X + 18, 19);
 
     doc.setFontSize(14);
     doc.setTextColor(30, 64, 175);

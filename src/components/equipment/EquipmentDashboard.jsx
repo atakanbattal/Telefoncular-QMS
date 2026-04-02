@@ -4,7 +4,6 @@ import {
     AlertTriangle,
     Users,
     XCircle,
-    CalendarClock,
     LayoutList,
     HelpCircle,
     Archive,
@@ -196,22 +195,6 @@ const EquipmentDashboard = ({ allEquipments = [], loading }) => {
                 transition={{ staggerChildren: 0.06, delayChildren: 0.05 }}
                 className="rounded-xl border border-border/80 bg-card/40 p-4 sm:p-5 space-y-6"
             >
-                <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
-                    <div>
-                        <div className="flex items-center gap-2 text-foreground">
-                            <CalendarClock className="h-5 w-5 text-muted-foreground shrink-0" aria-hidden />
-                            <h2 className="text-base sm:text-lg font-semibold tracking-tight">Kalibrasyon özeti</h2>
-                        </div>
-                        <p className="text-xs sm:text-sm text-muted-foreground mt-1 max-w-2xl leading-relaxed">
-                            Özet rakamlar <span className="text-foreground/90 font-medium">kayıtlı tüm ekipman</span>{' '}
-                            üzerindendir (filtre uygulanmaz). Tablo görünümü aşağıda arama ve filtreyle daraltılır. İkonun
-                            yanındaki{' '}
-                            <HelpCircle className="inline h-3.5 w-3.5 align-text-bottom opacity-70" aria-hidden /> ile
-                            her kutunun tanımını görebilirsiniz.
-                        </p>
-                    </div>
-                </div>
-
                 <div>
                     <SectionLabel>Kalibrasyon takibi</SectionLabel>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -251,14 +234,6 @@ const EquipmentDashboard = ({ allEquipments = [], loading }) => {
                             hurda işlemini tamamlayın veya durumu güncelleyin.
                         </p>
                     ) : null}
-                    <p className="text-[11px] sm:text-xs text-muted-foreground mt-3 leading-relaxed rounded-md bg-muted/40 border border-border/60 px-3 py-2">
-                        <span className="font-medium text-foreground/90">Toplam kayıt:</span> Mevcut ekipman ={' '}
-                        <span className="text-foreground/90">durumu hurda olanların tamamı</span> + zimmetli + zimmet
-                        dışı. <span className="font-medium text-foreground/90">Hurda</span> kartı ise bunların içinden
-                        yalnızca <span className="text-foreground/90">hurda ayırma tarihi girilmiş</span> (resmi işlem)
-                        kayıtları gösterir. Listede daha az satır varsa <span className="text-foreground/90">filtre veya arama</span>{' '}
-                        açıktır.
-                    </p>
                 </div>
             </motion.div>
         </TooltipProvider>

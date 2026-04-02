@@ -3,6 +3,7 @@ import 'jspdf-autotable';
 import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
 import { sanitizeFileName, toCamelCase } from './utils';
+import { PDF_COMPANY_HEADLINE, PDF_COMPANY_TAGLINE } from './appBranding';
 
 const generatePdf = async (doc, { title, reportNo, record, contentSections, dataContext }) => {
     const { personnel, departments } = dataContext;
@@ -13,12 +14,12 @@ const generatePdf = async (doc, { title, reportNo, record, contentSections, data
         doc.setFontSize(18);
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(40);
-        doc.text('KADEME A.Ş.', 20, 20);
+        doc.text(PDF_COMPANY_HEADLINE, 20, 20);
 
         doc.setFontSize(10);
         doc.setFont('helvetica', 'normal');
         doc.setTextColor(100);
-        doc.text('Kalite Yönetim Sistemi', 20, 26);
+        doc.text(PDF_COMPANY_TAGLINE, 20, 26);
 
         doc.setFontSize(12);
         doc.setFont('helvetica', 'bold');

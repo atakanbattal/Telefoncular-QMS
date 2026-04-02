@@ -3,6 +3,14 @@ import { tr } from 'date-fns/locale';
 import { supabase } from '@/lib/customSupabaseClient';
 import { toCamelCase, getAttachmentDisplayName } from './utils';
 import { normalizeQuarantineAttachments } from './quarantineAttachments';
+import {
+	PDF_COMPANY_HEADLINE,
+	PDF_COMPANY_TAGLINE,
+	PDF_SYSTEM_FULL_NAME,
+	PDF_LOGO_ALT,
+	PDF_LOGO_FILES,
+	PDF_CERTIFICATE_ORG_LINE,
+} from './appBranding';
 
 // Global formatter helpers
 const formatDateHelper = (dateStr, style = 'dd.MM.yyyy') => dateStr ? format(new Date(dateStr), style, { locale: tr }) : '-';
@@ -52,14 +60,19 @@ export const getLogoUrl = (filename) => {
 	return `/${filename}`;
 };
 
+/** Rapor PDF’lerinde kullanılacak logo (preload sonrası ilk başarılı dosya) */
+export const getPrimaryLogoForPdf = () => {
+	for (const f of PDF_LOGO_FILES) {
+		const u = getLogoUrl(f);
+		if (logoCache[u]) return logoCache[u];
+	}
+	return getLogoUrl(PDF_LOGO_FILES[PDF_LOGO_FILES.length - 1]);
+};
+
 // Tüm logoları önceden yükle ve cache'le
 export const preloadLogos = async () => {
-	// Sadece public klasöründeki logo.png dosyasını kullan
-	const logoUrls = [
-		getLogoUrl('logo.png'), // Ana Kademe logosu (public klasöründen)
-	];
+	const logoUrls = PDF_LOGO_FILES.map((f) => getLogoUrl(f));
 
-	// Tüm logoları paralel olarak yükle (başarısız olanlar sessizce atlanır)
 	await Promise.all(logoUrls.map(async (url) => {
 		try {
 			await imageUrlToBase64(url);
@@ -429,10 +442,8 @@ const generateCertificateReportHtml = (record) => {
 		? `adlı katılımcıya, "${record?.trainingTitle || 'Eğitim Adı'}" eğitimini başarıyla tamamladığı için verilmiştir.`
 		: `adlı katılımcıya, "${record?.trainingTitle || 'Eğitim Adı'}" eğitimine katıldığı için verilmiştir.`;
 
-	// Logoları base64 olarak al - public klasöründeki logo.png dosyasını kullan
-	const localKademeLogo = getLogoUrl('logo.png');
-	const kademeLogoBase64 = logoCache[localKademeLogo] || localKademeLogo;
-	const albayrakLogoBase64 = kademeLogoBase64; // Aynı logoyu kullan
+	const primaryLogoBase64 = getPrimaryLogoForPdf();
+	const partnerLogoBase64 = primaryLogoBase64;
 
 	return `
 		<div class="certificate-container">
@@ -441,12 +452,12 @@ const generateCertificateReportHtml = (record) => {
 				<div class="bg-shape bottom-left"></div>
 				
 				<div class="logo-header">
-					<img class="header-logo" alt="Kademe Logosu" src="${kademeLogoBase64}" />
-					<img class="header-logo" alt="Albayrak Logosu" src="${albayrakLogoBase64}" />
+					<img class="header-logo" alt="${PDF_LOGO_ALT}" src="${primaryLogoBase64}" />
+					<img class="header-logo" alt="${PDF_LOGO_ALT}" src="${partnerLogoBase64}" />
 				</div>
 
 		<div class="header-section">
-			<p class="company-name">KADEME AKADEMİ</p>
+			<p class="company-name">${PDF_CERTIFICATE_ORG_LINE}</p>
 			<h1 class="main-title">${certificateTitle}</h1>
 			<p class="subtitle">${subtitleText}</p>
 		</div>
@@ -514,14 +525,12 @@ const generateExamPaperHtml = (record) => {
 		`;
 	}).join('');
 
-	// Logo base64 - public klasöründeki logo.png dosyasını kullan
-	const localLogoUrl = getLogoUrl('logo.png');
-	const mainLogoBase64 = logoCache[localLogoUrl] || localLogoUrl;
+	const mainLogoBase64 = getPrimaryLogoForPdf();
 
 	return `
 		<div class="exam-header">
 			<div class="company-logo-exam">
-				<img src="${mainLogoBase64}" alt="Kademe Logo">
+				<img src="${mainLogoBase64}" alt="${PDF_LOGO_ALT}">
 			</div>
 			<div class="exam-title-section">
 				<h1>${exam.title || 'Sınav Değerlendirme Formu'}</h1>
@@ -585,8 +594,7 @@ const generateTrainingRecordReportHtml = (record) => {
 	};
 	const fmtDateLong = (d) => (d ? format(new Date(d), 'dd MMMM yyyy', { locale: tr }) : '—');
 
-	const localLogoUrl = getLogoUrl('logo.png');
-	const mainLogoBase64 = logoCache[localLogoUrl] || localLogoUrl;
+	const mainLogoBase64 = getPrimaryLogoForPdf();
 
 	const participants = [...(record.training_participants || [])].sort((a, b) =>
 		normalizeTrDisplay(a.personnel?.full_name || '').localeCompare(normalizeTrDisplay(b.personnel?.full_name || ''), 'tr')
@@ -610,11 +618,11 @@ const generateTrainingRecordReportHtml = (record) => {
 	return `
 		<div class="report-header training-record-report-header">
 			<div class="report-logo">
-				<img src="${mainLogoBase64}" alt="Kademe Logo">
+				<img src="${mainLogoBase64}" alt="${PDF_LOGO_ALT}">
 			</div>
 			<div class="company-title training-record-company-block">
-				<h1>KADEME A.Ş.</h1>
-				<p class="company-subline">Kalite Yönetim Sistemi</p>
+				<h1>${PDF_COMPANY_HEADLINE}</h1>
+				<p class="company-subline">${PDF_COMPANY_TAGLINE}</p>
 				<p class="training-record-doc-title">Eğitim kayıt ve katılım raporu</p>
 			</div>
 			<div class="training-record-header-spec">
@@ -833,18 +841,16 @@ const generateDynamicBalanceReportHtml = (record) => {
 		return '<span style="background: #6b7280; color: white; padding: 6px 16px; border-radius: 6px; font-size: 13px; display: inline-block;">-</span>';
 	};
 
-	// Logo base64 - public klasöründeki logo.png dosyasını kullan
-	const localLogoUrl = getLogoUrl('logo.png');
-	const mainLogoBase64 = logoCache[localLogoUrl] || localLogoUrl;
+	const mainLogoBase64 = getPrimaryLogoForPdf();
 
 	return `
 		<div class="report-header">
 			<div class="report-logo">
-				<img src="${mainLogoBase64}" alt="Kademe Logo">
+				<img src="${mainLogoBase64}" alt="${PDF_LOGO_ALT}">
 			</div>
 			<div class="company-title">
-				<h1>KADEME A.Ş.</h1>
-				<p>Kalite Yönetim Sistemi</p>
+				<h1>${PDF_COMPANY_HEADLINE}</h1>
+				<p>${PDF_COMPANY_TAGLINE}</p>
 			</div>
 			<div class="print-info">
 				Rapor Tarihi: ${formatDateTime(new Date())}
@@ -1214,18 +1220,16 @@ const generateWPSReportHtml = (record) => {
 		return '';
 	};
 
-	// Logo base64 - public klasöründeki logo.png dosyasını kullan
-	const localLogoUrl = getLogoUrl('logo.png');
-	const mainLogoBase64 = logoCache[localLogoUrl] || localLogoUrl;
+	const mainLogoBase64 = getPrimaryLogoForPdf();
 
 	return `
 		<div class="report-header">
 			 <div class="report-logo">
-				<img src="${mainLogoBase64}" alt="Kademe Logo">
+				<img src="${mainLogoBase64}" alt="${PDF_LOGO_ALT}">
 			</div>
 			<div class="company-title">
-				<h1>KADEME A.Ş.</h1>
-				<p>Kalite Yönetim Sistemi</p>
+				<h1>${PDF_COMPANY_HEADLINE}</h1>
+				<p>${PDF_COMPANY_TAGLINE}</p>
 			</div>
 			<div class="print-info">
 				Yazdır: ${record.wps_no || ''}<br>
@@ -1237,7 +1241,7 @@ const generateWPSReportHtml = (record) => {
 			<div class="meta-item"><strong>Belge Türü:</strong> WPS Spesifikasyonu</div>
 			<div class="meta-item"><strong>WPS No:</strong> ${record.wps_no || '-'}</div>
 			<div class="meta-item"><strong>Revizyon:</strong> ${record.revision || '0'}</div>
-			<div class="meta-item"><strong>Sistem:</strong> Kademe Kalite Yönetim Sistemi</div>
+			<div class="meta-item"><strong>Sistem:</strong> ${PDF_SYSTEM_FULL_NAME}</div>
 			<div class="meta-item"><strong>Yayın Tarihi:</strong> ${formatDate(record.wps_date)}</div>
 			<div class="meta-item"><strong>Güncelleme:</strong> ${formatDate(record.updated_at)}</div>
 		</div>
@@ -1532,17 +1536,15 @@ const generatePolyvalenceMatrixHtml = (record) => {
 		</div>
 	`;
 
-	// Logo base64 - public klasöründeki logo.png dosyasını kullan
-	const localLogoUrl = getLogoUrl('logo.png');
-	const mainLogoBase64 = logoCache[localLogoUrl] || localLogoUrl;
+	const mainLogoBase64 = getPrimaryLogoForPdf();
 
 	return `
 		<div class="report-header">
 			<div class="report-logo">
-				<img src="${mainLogoBase64}" alt="Kademe Logo">
+				<img src="${mainLogoBase64}" alt="${PDF_LOGO_ALT}">
 			</div>
 			<div class="company-title">
-				<h1>KADEME A.Ş.</h1>
+				<h1>${PDF_COMPANY_HEADLINE}</h1>
 				<p>Polivalans Matrisi Raporu</p>
 			</div>
 			<div class="print-info">
@@ -4045,9 +4047,7 @@ const generateListReportHtml = (record, type) => {
 		rowsHtml = '';
 	}
 
-	// Logo base64 - public klasöründeki logo.png dosyasını kullan
-	const localLogoUrl = getLogoUrl('logo.png');
-	const mainLogoBase64 = logoCache[localLogoUrl] || localLogoUrl;
+	const mainLogoBase64 = getPrimaryLogoForPdf();
 
 	// Rapor numarası oluştur
 	const reportNo = type === 'produced_vehicles_executive_summary'
@@ -4065,11 +4065,11 @@ const generateListReportHtml = (record, type) => {
 	return `
 		<div class="report-header">
 			<div class="report-logo">
-				<img src="${mainLogoBase64}" alt="Kademe Logo">
+				<img src="${mainLogoBase64}" alt="${PDF_LOGO_ALT}">
 			</div>
 			<div class="company-title">
-				<h1>KADEME A.Ş.</h1>
-				<p>Kalite Yönetim Sistemi</p>
+				<h1>${PDF_COMPANY_HEADLINE}</h1>
+				<p>${PDF_COMPANY_TAGLINE}</p>
 			</div>
 			<div class="print-info">
 				<div class="report-no">Rapor No</div>
@@ -4149,17 +4149,16 @@ const generateManagedNonconformityDetailHtml = (record) => {
 		</tr>
 	`;
 
-	const localLogoUrl = getLogoUrl('logo.png');
-	const mainLogoBase64 = logoCache[localLogoUrl] || localLogoUrl;
+	const mainLogoBase64 = getPrimaryLogoForPdf();
 
 	return `
 		<div class="report-header">
 			<div class="report-logo">
-				<img src="${mainLogoBase64}" alt="Kademe Logo">
+				<img src="${mainLogoBase64}" alt="${PDF_LOGO_ALT}">
 			</div>
 			<div class="company-title">
-				<h1>KADEME A.Ş.</h1>
-				<p>Kalite Yönetim Sistemi</p>
+				<h1>${PDF_COMPANY_HEADLINE}</h1>
+				<p>${PDF_COMPANY_TAGLINE}</p>
 			</div>
 			<div class="print-info">
 				Rapor Tarihi: ${formatDateTime(new Date())}
@@ -6354,18 +6353,16 @@ const generateGenericReportHtml = async (record, type) => {
 		return html;
 	};
 
-	// Logo base64 - public klasöründeki logo.png dosyasını kullan
-	const localLogoUrl = getLogoUrl('logo.png');
-	const mainLogoBase64 = logoCache[localLogoUrl] || localLogoUrl;
+	const mainLogoBase64 = getPrimaryLogoForPdf();
 
 	return `
 		<div class="report-header">
 			<div class="report-logo">
-				<img src="${mainLogoBase64}" alt="Kademe Logo">
+				<img src="${mainLogoBase64}" alt="${PDF_LOGO_ALT}">
 			</div>
 			<div class="company-title">
-				<h1>KADEME A.Ş.</h1>
-				<p>Kalite Yönetim Sistemi</p>
+				<h1>${PDF_COMPANY_HEADLINE}</h1>
+				<p>${PDF_COMPANY_TAGLINE}</p>
 			</div>
 			<div class="print-info">
 				Yazdır: ${getDocumentNumber()}<br>
@@ -6380,7 +6377,7 @@ const generateGenericReportHtml = async (record, type) => {
 			: `<div class="meta-item"><strong>No:</strong> ${getDocumentNumber()}</div>`
 		}
 			<div class="meta-item"><strong>Revizyon:</strong> ${record.revision || '0'}</div>
-			<div class="meta-item"><strong>Sistem:</strong> Kademe Kalite Yönetim Sistemi</div>
+			<div class="meta-item"><strong>Sistem:</strong> ${PDF_SYSTEM_FULL_NAME}</div>
 			<div class="meta-item"><strong>Yayın Tarihi:</strong> ${getPublicationDate()}</div>
 			<div class="meta-item"><strong>Durum:</strong> ${record.status || '-'}</div>
 		</div>
@@ -6495,17 +6492,15 @@ const generatePrintableReportHtml = async (record, type) => {
 		const contentHtml = generateListReportHtml(record, type);
 		// nonconformity_executive için tam HTML formatı (başlık ve imza dahil)
 		const formatDateTime = (dateStr) => dateStr ? format(new Date(dateStr), 'dd.MM.yyyy HH:mm') : '-';
-		// Logo base64 - public klasöründeki logo.png dosyasını kullan
-		const localLogoUrl = getLogoUrl('logo.png');
-		const mainLogoBase64 = logoCache[localLogoUrl] || localLogoUrl;
+		const mainLogoBase64 = getPrimaryLogoForPdf();
 		reportContentHtml = `
 		<div class="report-header">
 			<div class="report-logo">
-				<img src="${mainLogoBase64}" alt="Kademe Logo">
+				<img src="${mainLogoBase64}" alt="${PDF_LOGO_ALT}">
 			</div>
 			<div class="company-title">
-				<h1>KADEME A.Ş.</h1>
-				<p>Kalite Yönetim Sistemi</p>
+				<h1>${PDF_COMPANY_HEADLINE}</h1>
+				<p>${PDF_COMPANY_TAGLINE}</p>
 			</div>
 			<div class="print-info">
 				Rapor Tarihi: ${formatDateTime(new Date())}
@@ -8372,7 +8367,7 @@ a: after,
 		</div>
 		${!isCertificate ? `
 		<div class="report-footer">
-			<span>Bu belge, Kalite Yönetim Sistemi tarafından otomatik olarak oluşturulmuştur.</span>
+			<span>Bu belge, ${PDF_SYSTEM_FULL_NAME} tarafından otomatik olarak oluşturulmuştur.</span>
 			${!isTrainingRecord ? `<span>Belge Tarihi: ${format(new Date(), 'dd.MM.yyyy HH:mm')}</span>` : ''}
 			<span>Form No: ${formNumber}</span>
 			<span>Sayfa 1/1</span>

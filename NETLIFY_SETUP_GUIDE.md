@@ -43,7 +43,7 @@ Base directory: (boş bırak)
 **Variable 1:**
 ```
 Key: VITE_SUPABASE_URL
-Value: https://rqnvoatirfczpklaamhf.supabase.co
+Value: https://ryvczrubujzlanvqiqlk.supabase.co
 Scopes: All scopes (veya sadece Production)
 ```
 

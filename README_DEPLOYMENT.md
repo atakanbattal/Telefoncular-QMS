@@ -25,8 +25,8 @@ http://localhost:3000
 
 ```bash
 # Supabase Configuration
-VITE_SUPABASE_URL=https://rqnvoatirfczpklaamhf.supabase.co
-VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJxbnZvYXRpcmZjenBrbGFhbWhmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY4MTQ4MTIsImV4cCI6MjA3MjM5MDgxMn0.eyUXdL9A8JD32bx3NcHRa-rvyDByP4RJfqD69qRolhM
+VITE_SUPABASE_URL=https://ryvczrubujzlanvqiqlk.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5dmN6cnVidWp6bGFudnFpcWxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNDY0NDksImV4cCI6MjA5MDcyMjQ0OX0.v1-_uY9ISae_8p4juXzGro4FhxdDwCVD8Hos6HwbrHQ
 
 # Application Configuration
 VITE_APP_NAME=Kademe Kalite Yönetim Sistemi
@@ -107,7 +107,7 @@ npm run db:migrate
 5. **Environment Variables Ekle**
    - Site settings → Environment variables
    ```
-   VITE_SUPABASE_URL=https://rqnvoatirfczpklaamhf.supabase.co
+   VITE_SUPABASE_URL=https://ryvczrubujzlanvqiqlk.supabase.co
    VITE_SUPABASE_ANON_KEY=<your-key>
    VITE_APP_URL=https://kademekalite.online
    ```
@@ -146,7 +146,7 @@ docker build -t kademe-kalite:latest .
 docker run -d \
   --name kademe-kalite \
   -p 3000:3000 \
-  -e VITE_SUPABASE_URL=https://rqnvoatirfczpklaamhf.supabase.co \
+  -e VITE_SUPABASE_URL=https://ryvczrubujzlanvqiqlk.supabase.co \
   -e VITE_SUPABASE_ANON_KEY=<key> \
   kademe-kalite:latest
 
@@ -174,7 +174,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      VITE_SUPABASE_URL: https://rqnvoatirfczpklaamhf.supabase.co
+      VITE_SUPABASE_URL: https://ryvczrubujzlanvqiqlk.supabase.co
       VITE_SUPABASE_ANON_KEY: ${SUPABASE_ANON_KEY}
       VITE_APP_URL: https://kademekalite.online
     restart: unless-stopped
@@ -232,7 +232,7 @@ SLACK_WEBHOOK
 
 ### Supabase Dashboard
 ```
-https://app.supabase.com/project/rqnvoatirfczpklaamhf
+https://app.supabase.com/project/ryvczrubujzlanvqiqlk
 ```
 
 **Kontrol Edilecek Metrikler:**
@@ -351,7 +351,7 @@ echo $VITE_SUPABASE_ANON_KEY
 
 # Test connection
 curl -H "apikey: $VITE_SUPABASE_ANON_KEY" \
-     https://rqnvoatirfczpklaamhf.supabase.co/rest/v1/
+     https://ryvczrubujzlanvqiqlk.supabase.co/rest/v1/
 ```
 
 ### Port Already in Use

@@ -22,6 +22,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/components/ui/use-toast';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
+import { PDF_COMPANY_HEADLINE } from '@/lib/appBranding';
 import {
     Table,
     TableBody,
@@ -1179,7 +1180,7 @@ const BenchmarkComparison = ({ isOpen, onClose, benchmark, onRefresh }) => {
         <div class="page-content">
         <div class="header">
             <div class="header-left">
-                <h1>KADEME A.Ş.</h1>
+                <h1>{PDF_COMPANY_HEADLINE}</h1>
                 <p>Kalite Yönetim Sistemi</p>
             </div>
             <div class="header-right">
@@ -1373,7 +1374,7 @@ const BenchmarkComparison = ({ isOpen, onClose, benchmark, onRefresh }) => {
         </div>
         <div class="footer">
             <div class="footer-left">
-                <div>KADEME A.Ş.</div>
+                <div>{PDF_COMPANY_HEADLINE}</div>
                 <div style="font-size: 10px; margin-top: 2px;">Kalite Yönetim Sistemi</div>
             </div>
             <div class="footer-center">

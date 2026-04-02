@@ -17,7 +17,7 @@ import { Separator } from '@/components/ui/separator';
 
 const NCFormModal = ({ isOpen, setIsOpen, onSave, onSaveSuccess, record: initialRecord }) => {
     const { toast } = useToast();
-    const { formData, setFormData, files, handleInputChange, handleOpeningDateChange, handleSelectChange, handlePersonnelChange, personnel, getRootProps, getInputProps, isDragActive, removeFile, initializeForm, clearDraft } = useNCForm();
+    const { formData, setFormData, files, handleInputChange, handleOpeningDateChange, handleSelectChange, handlePersonnelChange, personnel, dataLoading, getRootProps, getInputProps, isDragActive, removeFile, initializeForm, clearDraft } = useNCForm();
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const isSourceTemplate = Boolean(
@@ -45,12 +45,11 @@ const NCFormModal = ({ isOpen, setIsOpen, onSave, onSaveSuccess, record: initial
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Personnel listesi kontrolü
-        if (personnel.length === 0 && !formData.is_supplier_nc) {
+        if (dataLoading && personnel.length === 0 && !formData.is_supplier_nc) {
             toast({
                 variant: 'destructive',
-                title: 'Hata!',
-                description: 'Personel listesi henüz yüklenmedi. Lütfen birkaç saniye bekleyip tekrar deneyin.'
+                title: 'Bekleyin',
+                description: 'Personel listesi yükleniyor. Birkaç saniye sonra tekrar deneyin.'
             });
             return;
         }

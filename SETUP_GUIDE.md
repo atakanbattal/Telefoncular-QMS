@@ -13,9 +13,9 @@
 ## 🔗 Supabase Proje Yapısı
 
 ### Mevcut Supabase Hesabı
-- **URL:** `https://rqnvoatirfczpklaamhf.supabase.co`
-- **Project ID:** `rqnvoatirfczpklaamhf`
-- **Anon Key:** `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJxbnZvYXRpcmZjenBrbGFhbWhmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY4MTQ4MTIsImV4cCI6MjA3MjM5MDgxMn0.eyUXdL9A8JD32bx3NcHRa-rvyDByP4RJfqD69qRolhM`
+- **URL:** `https://ryvczrubujzlanvqiqlk.supabase.co`
+- **Project ID:** `ryvczrubujzlanvqiqlk`
+- **Anon Key:** `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5dmN6cnVidWp6bGFudnFpcWxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNDY0NDksImV4cCI6MjA5MDcyMjQ0OX0.v1-_uY9ISae_8p4juXzGro4FhxdDwCVD8Hos6HwbrHQ`
 
 ### Ana Tablolar
 ```
@@ -60,8 +60,8 @@ Database Şeması:
 **`.env.local` oluştur:**
 ```bash
 # Supabase
-VITE_SUPABASE_URL=https://rqnvoatirfczpklaamhf.supabase.co
-VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJxbnZvYXRpcmZjenBrbGFhbWhmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY4MTQ4MTIsImV4cCI6MjA3MjM5MDgxMn0.eyUXdL9A8JD32bx3NcHRa-rvyDByP4RJfqD69qRolhM
+VITE_SUPABASE_URL=https://ryvczrubujzlanvqiqlk.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5dmN6cnVidWp6bGFudnFpcWxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNDY0NDksImV4cCI6MjA5MDcyMjQ0OX0.v1-_uY9ISae_8p4juXzGro4FhxdDwCVD8Hos6HwbrHQ
 
 # Application
 VITE_APP_NAME=Kademe Kalite Yönetim Sistemi
@@ -104,7 +104,7 @@ supabase db pull
 ### Database Dump Al (SQL)
 ```bash
 # PostgreSQL ile bağlantı stringi
-pg_dump --host=db.rqnvoatirfczpklaamhf.supabase.co \
+pg_dump --host=db.ryvczrubujzlanvqiqlk.supabase.co \
         --port=5432 \
         --username=postgres \
         --password \
@@ -184,7 +184,7 @@ git push -u origin main
 
 # 5. Environment variables ekle
 # Site settings → Environment variables
-VITE_SUPABASE_URL=https://rqnvoatirfczpklaamhf.supabase.co
+VITE_SUPABASE_URL=https://ryvczrubujzlanvqiqlk.supabase.co
 VITE_SUPABASE_ANON_KEY=<key>
 VITE_APP_URL=https://kademekalite.online
 ```
@@ -264,7 +264,7 @@ echo ".env.*.local" >> .gitignore
 
 ```bash
 # Dashboard'dan monitoring
-# https://app.supabase.com/project/rqnvoatirfczpklaamhf/monitoring
+# https://app.supabase.com/project/ryvczrubujzlanvqiqlk/monitoring
 
 # Kontrol edilecek metrikler:
 # - Database size
@@ -333,7 +333,7 @@ npm install @supabase/supabase-js
 ### Database bağlantı hatası
 ```bash
 # Connection string kontrol et
-VITE_SUPABASE_URL=https://rqnvoatirfczpklaamhf.supabase.co
+VITE_SUPABASE_URL=https://ryvczrubujzlanvqiqlk.supabase.co
 
 # Credentials kontrol et
 # Supabase Dashboard → Settings → API

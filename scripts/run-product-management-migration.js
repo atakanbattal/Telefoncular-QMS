@@ -10,7 +10,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const supabaseUrl = 'https://rqnvoatirfczpklaamhf.supabase.co';
+const supabaseUrl = 'https://ryvczrubujzlanvqiqlk.supabase.co';
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJxbnZvYXRpcmZjenBrbGFhbWhmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NjgxNDgxMiwiZXhwIjoyMDcyMzkwODEyfQ.2YJmKcpk1kHbAOc-H9s37NbUY74QJuqIYB1Z2ssusa4';
 
 const supabase = createClient(supabaseUrl, supabaseServiceKey, {
@@ -103,7 +103,7 @@ async function runMigration() {
     } catch (error) {
         console.error('\n❌ Migration hatası:', error.message);
         console.error('\n💡 Alternatif: SQL dosyasını Supabase Dashboard\'da manuel çalıştırın:');
-        console.error('   1. https://app.supabase.com/project/rqnvoatirfczpklaamhf/sql');
+        console.error('   1. https://app.supabase.com/project/ryvczrubujzlanvqiqlk/sql');
         console.error('   2. scripts/create-product-management-module.sql dosyasını açın');
         console.error('   3. İçeriği kopyalayıp SQL Editor\'e yapıştırın');
         console.error('   4. Run butonuna tıklayın');

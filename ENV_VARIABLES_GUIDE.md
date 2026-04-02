@@ -14,7 +14,7 @@
 
 ### Başlangıç: Supabase Dashboard'ı Aç
 1. **https://app.supabase.com/projects** adresine git
-2. Senin proje'yi bul ve tıkla: **"rqnvoatirfczpklaamhf"**
+2. Senin proje'yi bul ve tıkla: **"ryvczrubujzlanvqiqlk"**
 
 ### Adım Adım:
 1. Sol menüde **"Project Settings"** tıkla (alt tarafta)
@@ -23,12 +23,12 @@
 
 **Burada göreceksin:**
 ```
-https://rqnvoatirfczpklaamhf.supabase.co
+https://ryvczrubujzlanvqiqlk.supabase.co
 ```
 
 ### Kopyala:
 ```
-VITE_SUPABASE_URL=https://rqnvoatirfczpklaamhf.supabase.co
+VITE_SUPABASE_URL=https://ryvczrubujzlanvqiqlk.supabase.co
 ```
 
 ✅ **Bunu Netlify'de kullanacaksın!**
@@ -48,12 +48,12 @@ VITE_SUPABASE_URL=https://rqnvoatirfczpklaamhf.supabase.co
 
 **Göreceksin:**
 ```
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJxbnZvYXRpcmZjenBrbGFhbWhmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY4MTQ4MTIsImV4cCI6MjA3MjM5MDgxMn0.eyUXdL9A8JD32bx3NcHRa-rvyDByP4RJfqD69qRolhM
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5dmN6cnVidWp6bGFudnFpcWxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNDY0NDksImV4cCI6MjA5MDcyMjQ0OX0.v1-_uY9ISae_8p4juXzGro4FhxdDwCVD8Hos6HwbrHQ
 ```
 
 ### Kopyala:
 ```
-VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJxbnZvYXRpcmZjenBrbGFhbWhmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY4MTQ4MTIsImV4cCI6MjA3MjM5MDgxMn0.eyUXdL9A8JD32bx3NcHRa-rvyDByP4RJfqD69qRolhM
+VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5dmN6cnVidWp6bGFudnFpcWxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNDY0NDksImV4cCI6MjA5MDcyMjQ0OX0.v1-_uY9ISae_8p4juXzGro4FhxdDwCVD8Hos6HwbrHQ
 ```
 
 ⚠️ **ÖNEMLİ:**
@@ -101,14 +101,14 @@ Supabase Dashboard
     │
     ├─ Top Right: Projects
     │
-    └─ Proje Seç: rqnvoatirfczpklaamhf
+    └─ Proje Seç: ryvczrubujzlanvqiqlk
        │
        ├─ Sol Menü: Project Settings (alt tarafta)
        │   │
        │   └─ API Tab
        │      │
        │      ├─ Project URL (VITE_SUPABASE_URL)
-       │      │   └─ https://rqnvoatirfczpklaamhf.supabase.co
+       │      │   └─ https://ryvczrubujzlanvqiqlk.supabase.co
        │      │
        │      └─ API Keys (VITE_SUPABASE_ANON_KEY)
        │          │
@@ -124,7 +124,7 @@ Supabase Dashboard
 
 | Variable | Değer | Nereden |
 |----------|-------|---------|
-| **VITE_SUPABASE_URL** | `https://rqnvoatirfczpklaamhf.supabase.co` | Supabase → Project Settings → API → Project URL |
+| **VITE_SUPABASE_URL** | `https://ryvczrubujzlanvqiqlk.supabase.co` | Supabase → Project Settings → API → Project URL |
 | **VITE_SUPABASE_ANON_KEY** | `eyJhbGciO...` (uzun string) | Supabase → Project Settings → API → API Keys → anon |
 | **VITE_APP_URL** | `https://your-app.netlify.app` | Netlify deploy URL'i |
 
@@ -141,7 +141,7 @@ Supabase Dashboard
 ### İlk Variable (VITE_SUPABASE_URL):
 ```
 Name alanına yazı:    VITE_SUPABASE_URL
-Value alanına yazı:   https://rqnvoatirfczpklaamhf.supabase.co
+Value alanına yazı:   https://ryvczrubujzlanvqiqlk.supabase.co
 ```
 → **Add** butonuna tıkla
 
@@ -173,7 +173,7 @@ Value alanına yazı:   https://your-app-name.netlify.app
 2. "Project URL" bölümünde
 3. Başı: `https://`
 4. Sonu: `.supabase.co`
-5. Ortada: `rqnvoatirfczpklaamhf`
+5. Ortada: `ryvczrubujzlanvqiqlk`
 
 **Ankey'i kopyala:**
 1. Supabase → Project Settings → API
@@ -202,7 +202,7 @@ VITE_SUPABASE_ANON_KEY=sb_service_key_...
 
 ### ❌ HATA 2: URL'nin Sonunu Kapatmak
 ```
-https://rqnvoatirfczpklaamhf.supabase.co/
+https://ryvczrubujzlanvqiqlk.supabase.co/
 ```
 **YANLIŞ!** Son slash olmasın (`.co` ile bitsin)
 
@@ -214,7 +214,7 @@ VITE_SUPABASE_URL = https://...
 
 ### ✅ DOĞRU:
 ```
-VITE_SUPABASE_URL=https://rqnvoatirfczpklaamhf.supabase.co
+VITE_SUPABASE_URL=https://ryvczrubujzlanvqiqlk.supabase.co
 VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 VITE_APP_URL=https://your-app-name.netlify.app
 ```
@@ -227,7 +227,7 @@ VITE_APP_URL=https://your-app-name.netlify.app
 
 1. ✅ **VITE_SUPABASE_URL**
    - Supabase'den kopyala
-   - `https://rqnvoatirfczpklaamhf.supabase.co`
+   - `https://ryvczrubujzlanvqiqlk.supabase.co`
 
 2. ✅ **VITE_SUPABASE_ANON_KEY**
    - Supabase'den kopyala (anon key)
@@ -247,7 +247,7 @@ VITE_APP_URL=https://your-app-name.netlify.app
 ## 📞 Hala Kafan Karışık mı?
 
 **Supabase'i aç şimdi:**
-- https://app.supabase.com/project/rqnvoatirfczpklaamhf
+- https://app.supabase.com/project/ryvczrubujzlanvqiqlk
 - Project Settings → API
 - İlk 2 değişkeni gör ve kopyala!
 

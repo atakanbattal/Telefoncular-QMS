@@ -88,8 +88,6 @@ import React, { createContext, useState, useContext, useCallback } from 'react';
         const { user, profile } = useAuth();
         const [formData, setFormData] = useState({});
         const [files, setFiles] = useState([]);
-        const [departments, setDepartments] = useState([]);
-        const [personnel, setPersonnel] = useState([]);
 
         const DRAFT_KEY = `nc:draft:${user?.id}`;
 
@@ -392,8 +390,6 @@ import React, { createContext, useState, useContext, useCallback } from 'react';
             <NCFormContext.Provider value={{
                 formData, setFormData,
                 files, setFiles,
-                departments, setDepartments,
-                personnel, setPersonnel,
                 initializeForm,
                 clearDraft
             }}>

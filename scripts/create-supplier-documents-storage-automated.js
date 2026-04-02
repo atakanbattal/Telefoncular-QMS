@@ -6,7 +6,7 @@
 import { createClient } from '@supabase/supabase-js';
 import fetch from 'node-fetch';
 
-const supabaseUrl = 'https://rqnvoatirfczpklaamhf.supabase.co';
+const supabaseUrl = 'https://ryvczrubujzlanvqiqlk.supabase.co';
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJxbnZvYXRpcmZjenBrbGFhbWhmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NjgxNDgxMiwiZXhwIjoyMDcyMzkwODEyfQ.2YJmKcpk1kHbAOc-H9s37NbUY74QJuqIYB1Z2ssusa4';
 
 const supabase = createClient(supabaseUrl, supabaseServiceKey, {
@@ -159,7 +159,7 @@ async function run() {
         console.log('');
         console.log('⚠️  Bucket REST API ile oluşturulamadı');
         console.log('📝 Manuel Oluşturma Talimatları:');
-        console.log('   1. https://app.supabase.com/project/rqnvoatirfczpklaamhf/storage/buckets');
+        console.log('   1. https://app.supabase.com/project/ryvczrubujzlanvqiqlk/storage/buckets');
         console.log('   2. Create Bucket → supplier_documents');
         console.log('   3. Public: false, File size: 50 MB');
         console.log('');

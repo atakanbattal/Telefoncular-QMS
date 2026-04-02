@@ -12,14 +12,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Supabase bağlantı bilgileri
-const supabaseUrl = 'https://rqnvoatirfczpklaamhf.supabase.co';
+const supabaseUrl = 'https://ryvczrubujzlanvqiqlk.supabase.co';
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
 
 if (!supabaseServiceKey) {
     console.error('❌ HATA: SUPABASE_SERVICE_KEY environment variable ayarlanmamış!');
     console.error('');
     console.error('Service Key\'i Supabase Dashboard\'dan alın:');
-    console.error('  1. https://app.supabase.com/project/rqnvoatirfczpklaamhf/settings/api');
+    console.error('  1. https://app.supabase.com/project/ryvczrubujzlanvqiqlk/settings/api');
     console.error('  2. "service_role" key\'i kopyalayın (secret key)');
     console.error('');
     console.error('Kullanım:');
@@ -141,7 +141,7 @@ async function runMigration() {
         console.error('');
         console.error('📝 Alternatif Yöntem:');
         console.error('1. Supabase Dashboard\'a gidin:');
-        console.error('   https://app.supabase.com/project/rqnvoatirfczpklaamhf/sql');
+        console.error('   https://app.supabase.com/project/ryvczrubujzlanvqiqlk/sql');
         console.error('');
         console.error('2. SQL Editor\'ü açın');
         console.error('');

@@ -13,6 +13,7 @@ import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { PDF_COMPANY_HEADLINE } from '@/lib/appBranding';
 
 const QuestionBankModal = ({ isOpen, setIsOpen }) => {
     const { toast } = useToast();
@@ -473,7 +474,7 @@ const QuestionBankModal = ({ isOpen, setIsOpen }) => {
             <body>
                 <div class="page">
                     <div class="header">
-                        <h1>KADEME A.Ş.</h1>
+                        <h1>{PDF_COMPANY_HEADLINE}</h1>
                         <p>Kalite Yönetim Sistemi</p>
                     </div>
                     

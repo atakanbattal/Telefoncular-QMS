@@ -37,7 +37,7 @@ npm install
 
 # 3. Supabase credentials ekle (.env.local)
 cat > .env.local << 'EOF'
-VITE_SUPABASE_URL=https://rqnvoatirfczpklaamhf.supabase.co
+VITE_SUPABASE_URL=https://ryvczrubujzlanvqiqlk.supabase.co
 VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 NODE_ENV=development
 EOF
@@ -73,7 +73,7 @@ git push origin main
 ## 📊 Supabase Dashboard Yönetimi
 
 ### Erişim
-- **URL**: https://app.supabase.com/project/rqnvoatirfczpklaamhf
+- **URL**: https://app.supabase.com/project/ryvczrubujzlanvqiqlk
 - **Kontrol**: Tables, Auth, Storage, SQL Editor, Logs
 - **Monitoring**: Real-time analytics
 
@@ -106,7 +106,7 @@ CREATE POLICY "Users can read own data"
 ```bash
 # Supabase CLI ile Edge Function deploy
 supabase login
-supabase link --project-ref rqnvoatirfczpklaamhf
+supabase link --project-ref ryvczrubujzlanvqiqlk
 supabase functions deploy manage-user
 ```
 
@@ -171,7 +171,7 @@ git push origin main
 
 #### **3. Netlify Environment Variables**
 ```
-VITE_SUPABASE_URL=https://rqnvoatirfczpklaamhf.supabase.co
+VITE_SUPABASE_URL=https://ryvczrubujzlanvqiqlk.supabase.co
 VITE_SUPABASE_ANON_KEY=<from Supabase>
 VITE_APP_URL=https://production-url.netlify.app
 ```
@@ -256,7 +256,7 @@ ALTER TABLE table_name ADD COLUMN new_column TYPE;
 
 ### Supabase Dashboard
 
-**URL**: https://app.supabase.com/project/rqnvoatirfczpklaamhf
+**URL**: https://app.supabase.com/project/ryvczrubujzlanvqiqlk
 
 **İzlenecek Metrikler:**
 1. **Database**
@@ -306,7 +306,7 @@ git pull origin main
 npm run dev
 
 # 3. Supabase Dashboard'ı aç
-# https://app.supabase.com/project/rqnvoatirfczpklaamhf
+# https://app.supabase.com/project/ryvczrubujzlanvqiqlk
 ```
 
 ### Gün İçinde

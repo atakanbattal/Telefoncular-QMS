@@ -12,7 +12,7 @@ Tüm veritabanı tablolarına otomatik audit trigger'ları eklendi. Artık **her
 
 ### 1️⃣ Supabase Dashboard'a Giriş
 1. [Supabase Dashboard](https://app.supabase.com) adresine gidin
-2. Projenizi seçin (`rqnvoatirfczpklaamhf`)
+2. Projenizi seçin (`ryvczrubujzlanvqiqlk`)
 3. Sol menüden **SQL Editor**'ü açın
 
 ### 2️⃣ SQL Script'i Çalıştırın

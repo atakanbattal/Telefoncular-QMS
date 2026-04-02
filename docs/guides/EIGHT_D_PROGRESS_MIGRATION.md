@@ -13,7 +13,7 @@ Could not find the 'eight_d_progress' column of 'non_conformities' in the schema
 
 1. **Supabase Dashboard'a gidin:**
    ```
-   https://app.supabase.com/project/rqnvoatirfczpklaamhf/sql
+   https://app.supabase.com/project/ryvczrubujzlanvqiqlk/sql
    ```
 
 2. **SQL Editor'ü açın**

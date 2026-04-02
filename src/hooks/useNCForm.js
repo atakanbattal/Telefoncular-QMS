@@ -1,4 +1,4 @@
-import { useContext, useEffect, useCallback } from 'react';
+import { useContext, useEffect, useCallback, useMemo } from 'react';
     import { useToast } from '@/components/ui/use-toast';
     import { useAuth } from '@/contexts/SupabaseAuthContext';
     import { useData } from '@/contexts/DataContext';
@@ -7,7 +7,7 @@ import { useContext, useEffect, useCallback } from 'react';
     import { SLA_DURATIONS } from '@/lib/constants';
     import { format, parse, isValid, addMonths } from 'date-fns';
 
-    const toInputDateString = (date) => {
+    export const toInputDateString = (date) => {
         if (!date) return '';
         try {
             let d;
@@ -81,39 +81,31 @@ import { useContext, useEffect, useCallback } from 'react';
         const { user } = useAuth();
         // DataContext'ten global personel ve department verilerini al
         const { personnel: globalPersonnel, productionDepartments: globalDepartments, loading: dataLoading } = useData();
-        const { 
-            formData, setFormData, files, setFiles,
-            personnel, setPersonnel, departments, setDepartments, initializeForm, clearDraft
-        } = useContext(NCFormContext);
+        const { formData, setFormData, files, setFiles, initializeForm, clearDraft } = useContext(NCFormContext);
 
         const DRAFT_KEY = `nc:draft:${user?.id}`;
 
-        // DataContext'ten verileri NCFormContext'e aktar
-        useEffect(() => {
-            // Global personnel verisini kullan (is_active filtresi DataContext'te yapılıyor)
-            if (globalPersonnel && globalPersonnel.length > 0 && personnel.length === 0) {
-                // Sadece is_active olanları filtrele ve gerekli alanları al
-                const activePersonnel = globalPersonnel
-                    .filter(p => p.is_active !== false)
-                    .map(p => ({
+        // Personel/birimleri doğrudan DataContext'ten türet (NCFormContext kopyasına güvenme — Ayarlar ile aynı kaynak)
+        const personnel = useMemo(
+            () =>
+                (globalPersonnel || [])
+                    .filter((p) => p.is_active !== false)
+                    .map((p) => ({
                         id: p.id,
                         full_name: p.full_name,
                         department: p.department,
                         job_title: p.job_title,
                         collar_type: p.collar_type,
                         management_department: p.management_department,
-                    }));
-                setPersonnel(activePersonnel);
-                console.log('✅ Personnel loaded from DataContext:', activePersonnel.length, 'personnel');
-            }
+                    })),
+            [globalPersonnel]
+        );
 
-            // Global departments verisini kullan
-            if (globalDepartments && globalDepartments.length > 0 && departments.length === 0) {
-                const uniqueDepartments = [...new Set(globalDepartments.map(d => d.unit_name).filter(Boolean))].sort();
-                setDepartments(uniqueDepartments);
-                console.log('✅ Departments loaded from DataContext:', uniqueDepartments.length, 'departments');
-            }
-        }, [globalPersonnel, globalDepartments, personnel.length, departments.length, setPersonnel, setDepartments]);
+        const departments = useMemo(
+            () =>
+                [...new Set((globalDepartments || []).map((d) => d.name || d.unit_name).filter(Boolean))].sort(),
+            [globalDepartments]
+        );
 
         const onDrop = useCallback(acceptedFiles => {
             setFiles(prev => [...prev, ...acceptedFiles]);
@@ -186,7 +178,7 @@ import { useContext, useEffect, useCallback } from 'react';
                 updates.department = value ? 'Tedarikçi' : '';
                 updates.responsible_person = value ? null : formData.responsible_person;
             } else if (id === 'supplier_id') {
-                const supplier = personnel.find(s => s.value === value);
+                const supplier = personnel.find((s) => s.value === value);
                 if (supplier) {
                     updates.supplier_status = supplier.status;
                 }
@@ -235,6 +227,7 @@ import { useContext, useEffect, useCallback } from 'react';
             handlePersonnelChange,
             personnel,
             departments,
+            dataLoading,
             getRootProps,
             getInputProps,
             isDragActive,

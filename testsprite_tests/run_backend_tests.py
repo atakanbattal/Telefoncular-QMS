@@ -32,11 +32,11 @@ if env_path.exists():
             k, v = line.strip().split("=", 1)
             os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
 
-SUPABASE_URL = os.getenv("VITE_SUPABASE_URL") or os.getenv("SUPABASE_URL") or "https://rqnvoatirfczpklaamhf.supabase.co"
+SUPABASE_URL = os.getenv("VITE_SUPABASE_URL") or os.getenv("SUPABASE_URL") or "https://ryvczrubujzlanvqiqlk.supabase.co"
 SUPABASE_ANON_KEY = (
     os.getenv("VITE_SUPABASE_ANON_KEY")
     or os.getenv("SUPABASE_ANON_KEY")
-    or "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJxbnZvYXRpcmZjenBrbGFhbWhmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY4MTQ4MTIsImV4cCI6MjA3MjM5MDgxMn0.eyUXdL9A8JD32bx3NcHRa-rvyDByP4RJfqD69qRolhM"
+    or "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5dmN6cnVidWp6bGFudnFpcWxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNDY0NDksImV4cCI6MjA5MDcyMjQ0OX0.v1-_uY9ISae_8p4juXzGro4FhxdDwCVD8Hos6HwbrHQ"
 )
 LOGIN_EMAIL = os.getenv("LOGIN_EMAIL", "atakan.battal@kademe.com.tr")
 LOGIN_PASSWORD = os.getenv("LOGIN_PASSWORD", "atakan1234.")

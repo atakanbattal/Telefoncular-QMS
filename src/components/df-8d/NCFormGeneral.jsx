@@ -10,7 +10,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { SearchableSelectDialog } from '@/components/ui/searchable-select-dialog';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Badge } from '@/components/ui/badge';
-import { useNCForm, ncOrganizationalUnitFromPersonnel } from '@/hooks/useNCForm';
+import { ncOrganizationalUnitFromPersonnel, toInputDateString } from '@/hooks/useNCForm';
 import { useData } from '@/contexts/DataContext';
 import { Lightbox } from 'react-modal-image';
 import PdfViewerModal from '@/components/document/PdfViewerModal';
@@ -164,9 +164,8 @@ const NCFormGeneral = ({
     const [isSupplierNC, setIsSupplierNC] = useState(!!(formData.is_supplier_nc || formData.supplier_id));
     const [suppliers, setSuppliers] = useState([]);
     const [selectedSupplierStatus, setSelectedSupplierStatus] = useState(null);
-    const { toInputDateString } = useNCForm();
     const [lightboxUrl, setLightboxUrl] = useState(null);
-    const { unitCostSettings } = useData();
+    const { unitCostSettings, loading: dataLoading } = useData();
 
     const organizationUnitOptions = useMemo(() => {
         const fromSettings = (unitCostSettings || [])
@@ -274,9 +273,11 @@ const NCFormGeneral = ({
         )
     }));
 
-    const personnelOptions = (personnel || []).length > 0 
+    const personnelOptions = (personnel || []).length > 0
         ? personnel.map(p => ({ value: p.full_name, label: p.full_name }))
         : [];
+
+    const showPersonnelLoading = dataLoading && personnelOptions.length === 0;
 
     const handleRemoveExistingAttachment = (pathToRemove) => {
         setFormData(prev => ({
@@ -385,10 +386,27 @@ const NCFormGeneral = ({
                         searchPlaceholder="Personel ara..."
                         notFoundText="Personel bulunamadı."
                     />
+                ) : showPersonnelLoading ? (
+                    <div className="flex items-center gap-2 p-2 border border-muted rounded-md bg-muted/40">
+                        <Loader2 className="w-4 h-4 text-muted-foreground animate-spin" />
+                        <span className="text-sm text-muted-foreground">Personel listesi yükleniyor…</span>
+                    </div>
                 ) : (
-                    <div className="flex items-center gap-2 p-2 border border-destructive/50 rounded-md bg-destructive/10">
-                        <AlertCircle className="w-4 h-4 text-destructive" />
-                        <span className="text-sm text-destructive">Personel listesi yükleniyor... Lütfen bekleyin.</span>
+                    <div className="space-y-2">
+                        <Alert variant="default" className="border-amber-500/50 bg-amber-500/10">
+                            <AlertCircle className="h-4 w-4" />
+                            <AlertTitle>Kayıtlı personel yok</AlertTitle>
+                            <AlertDescription>
+                                Personel modülünden aktif personel ekleyin veya adı aşağıya yazın.
+                            </AlertDescription>
+                        </Alert>
+                        <Input
+                            id="requesting_person"
+                            value={formData.requesting_person || ''}
+                            onChange={handleInputChange}
+                            placeholder="Ad Soyad"
+                            required
+                        />
                     </div>
                 )}
             </div>
@@ -423,10 +441,27 @@ const NCFormGeneral = ({
                                 searchPlaceholder="Personel ara..."
                                 notFoundText="Personel bulunamadı."
                             />
+                        ) : showPersonnelLoading ? (
+                            <div className="flex items-center gap-2 p-2 border border-muted rounded-md bg-muted/40">
+                                <Loader2 className="w-4 h-4 text-muted-foreground animate-spin" />
+                                <span className="text-sm text-muted-foreground">Personel listesi yükleniyor…</span>
+                            </div>
                         ) : (
-                            <div className="flex items-center gap-2 p-2 border border-destructive/50 rounded-md bg-destructive/10">
-                                <AlertCircle className="w-4 h-4 text-destructive" />
-                                <span className="text-sm text-destructive">Personel listesi yükleniyor... Lütfen bekleyin.</span>
+                            <div className="space-y-2">
+                                <Alert variant="default" className="border-amber-500/50 bg-amber-500/10">
+                                    <AlertCircle className="h-4 w-4" />
+                                    <AlertTitle>Kayıtlı personel yok</AlertTitle>
+                                    <AlertDescription>
+                                        Personel modülünden aktif personel ekleyin veya adı aşağıya yazın.
+                                    </AlertDescription>
+                                </Alert>
+                                <Input
+                                    id="responsible_person"
+                                    value={formData.responsible_person || ''}
+                                    onChange={handleInputChange}
+                                    placeholder="Ad Soyad"
+                                    required
+                                />
                             </div>
                         )}
                     </div>

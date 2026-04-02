@@ -23,23 +23,24 @@ function App() {
         <HelmetProvider>
             <ErrorBoundary>
             <AuthProvider>
-                <DataProvider>
-                    <NCFormProvider>
-                        <Routes>
-                            <Route path="/login" element={<Login />} />
-                            <Route path="/supplier-portal" element={<SupplierPortalPage />} />
-                            <Route path="/print/report/:type/:id" element={<AuthProtected><PrintableReport /></AuthProtected>} />
-                            <Route path="/print/dashboard-report" element={<AuthProtected><PrintableDashboardReport /></AuthProtected>} />
-                            <Route path="/print/a3-quality-board" element={<AuthProtected><A3QualityBoardReport /></AuthProtected>} />
-                            <Route path="/print/internal-audit-dashboard" element={<AuthProtected><PrintableInternalAuditDashboard /></AuthProtected>} />
-                            <Route path="/*" element={
-                                <AuthProtected>
+                <Routes>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/supplier-portal" element={<SupplierPortalPage />} />
+                    <Route path="/print/report/:type/:id" element={<AuthProtected><PrintableReport /></AuthProtected>} />
+                    <Route path="/print/dashboard-report" element={<AuthProtected><PrintableDashboardReport /></AuthProtected>} />
+                    <Route path="/print/a3-quality-board" element={<AuthProtected><A3QualityBoardReport /></AuthProtected>} />
+                    <Route path="/print/internal-audit-dashboard" element={<AuthProtected><PrintableInternalAuditDashboard /></AuthProtected>} />
+                    {/* DataProvider / NCFormProvider yalnızca ana kabuk: useData + useNCForm tüm modüllerde tutarlı */}
+                    <Route path="/*" element={
+                        <AuthProtected>
+                            <DataProvider>
+                                <NCFormProvider>
                                     <MainLayout />
-                                </AuthProtected>
-                            } />
-                        </Routes>
-                    </NCFormProvider>
-                </DataProvider>
+                                </NCFormProvider>
+                            </DataProvider>
+                        </AuthProtected>
+                    } />
+                </Routes>
                 <Toaster />
             </AuthProvider>
             </ErrorBoundary>

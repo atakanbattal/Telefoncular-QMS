@@ -1,13 +1,17 @@
-import { logoCache, imageUrlToBase64, preloadLogos, getLogoUrl } from './reportUtils';
+import { getPrimaryLogoForPdf, imageUrlToBase64, preloadLogos } from './reportUtils';
 import { calculateVehicleTimelineStats } from './vehicleTimelineUtils';
+import {
+	PDF_COMPANY_HEADLINE,
+	PDF_COMPANY_TAGLINE,
+	PDF_SYSTEM_FULL_NAME,
+	PDF_LOGO_ALT,
+} from './appBranding';
 
 const generatePrintableReport = async (record) => {
     // Logoları önceden yükle (cache'de yoksa)
     await preloadLogos();
-    
-    // Logo base64 - public klasöründeki logo.png dosyasını kullan
-    const localLogoUrl = getLogoUrl('logo.png');
-    const mainLogoBase64 = logoCache[localLogoUrl] || localLogoUrl;
+
+    const mainLogoBase64 = getPrimaryLogoForPdf();
     const formatDate = (dateString) => dateString ? new Date(dateString).toLocaleDateString('tr-TR') : '-';
     
     // Metin alanlarını formatla (camelCase kaldırıldı)
@@ -180,7 +184,7 @@ const generatePrintableReport = async (record) => {
     let attachmentsHtml = '';
     if (record.attachments && record.attachments.length > 0) {
         const imageSrcs = await Promise.all(record.attachments.map(async (path) => {
-            const url = `https://rqnvoatirfczpklaamhf.supabase.co/storage/v1/object/public/documents/${path}`;
+            const url = `https://ryvczrubujzlanvqiqlk.supabase.co/storage/v1/object/public/documents/${path}`;
             const base64 = await imageUrlToBase64(url);
             return base64 || url;
         }));
@@ -492,10 +496,10 @@ const generatePrintableReport = async (record) => {
         <body>
             <div class="page">
                 <div class="header">
-                    <img src="${mainLogoBase64}" alt="Logo" class="header-logo" crossOrigin="anonymous" onerror="this.style.display='none'" />
+                    <img src="${mainLogoBase64}" alt="${PDF_LOGO_ALT}" class="header-logo" crossOrigin="anonymous" onerror="this.style.display='none'" />
                     <div>
-                        <h1>KADEME A.Ş.</h1>
-                        <p>Kalite Yönetim Sistemi</p>
+                        <h1>${PDF_COMPANY_HEADLINE}</h1>
+                        <p>${PDF_COMPANY_TAGLINE}</p>
                     </div>
                     <div class="print-info">
                         <p>${record.nc_number || record.mdi_no || '-'}</p>
@@ -542,7 +546,7 @@ const generatePrintableReport = async (record) => {
                 ${closingNotesHtml}
                 
                 <div class="footer">
-                    Bu rapor, Kalite Yönetim Sistemi tarafından otomatik olarak oluşturulmuştur.
+                    Bu rapor, ${PDF_SYSTEM_FULL_NAME} tarafından otomatik olarak oluşturulmuştur.
                 </div>
             </div>
             <script>
@@ -587,13 +591,11 @@ export const generate8DPDF = async (record) => {
 export const generateVehicleSummaryReport = async (vehicles, timelineByVehicle, faultsByVehicle, selectedStatuses = []) => {
     // Logoları önceden yükle (cache'de yoksa) - uygunsuzluk yönetimindeki gibi
     await preloadLogos();
-    
-    // Logo base64 - public klasöründeki logo.png dosyasını kullan
-    const localLogoUrl = getLogoUrl('logo.png');
-    const mainLogoBase64 = logoCache[localLogoUrl] || localLogoUrl;
-    
+
+    const mainLogoBase64 = getPrimaryLogoForPdf();
+
     const formatDate = (dateString) => dateString ? new Date(dateString).toLocaleDateString('tr-TR') : '-';
-    
+
     const formatDuration = (milliseconds) => {
         if (!milliseconds || milliseconds < 0) return '0 dk';
         const seconds = Math.floor(milliseconds / 1000);
@@ -970,11 +972,11 @@ export const generateVehicleSummaryReport = async (vehicles, timelineByVehicle, 
             <div class="page">
                 <div class="header">
                     <div class="report-logo">
-                        <img src="${mainLogoBase64}" alt="Kademe Logo" class="header-logo" />
+                        <img src="${mainLogoBase64}" alt="${PDF_LOGO_ALT}" class="header-logo" />
                     </div>
                     <div class="company-title">
-                        <h1>KADEME A.Ş.</h1>
-                        <p>Kalite Yönetim Sistemi</p>
+                        <h1>${PDF_COMPANY_HEADLINE}</h1>
+                        <p>${PDF_COMPANY_TAGLINE}</p>
                     </div>
                     <div class="print-info">
                         Yazdır: ${reportNo.split('-').pop()}<br>
@@ -1046,7 +1048,7 @@ export const generateVehicleSummaryReport = async (vehicles, timelineByVehicle, 
                 </div>
                 
                 <div class="footer">
-                    Bu rapor, Kalite Yönetim Sistemi tarafından otomatik olarak oluşturulmuştur.
+                    Bu rapor, ${PDF_SYSTEM_FULL_NAME} tarafından otomatik olarak oluşturulmuştur.
                 </div>
             </div>
         </body>
@@ -1191,11 +1193,9 @@ export const generateVehicleReport = async (vehicle, timeline, faults, equipment
 
     // Logoları önceden yükle (cache'de yoksa) - uygunsuzluk yönetimindeki gibi
     await preloadLogos();
-    
-    // Logo base64 - public klasöründeki logo.png dosyasını kullan
-    const localLogoUrl = getLogoUrl('logo.png');
-    const mainLogoBase64 = logoCache[localLogoUrl] || localLogoUrl;
-    
+
+    const mainLogoBase64 = getPrimaryLogoForPdf();
+
     // Rapor numarası oluştur
     const reportNo = `ARAC-${vehicle.chassis_no || 'N/A'}-${Date.now().toString().slice(-6)}`;
     const reportDate = formatDate(new Date());
@@ -1393,11 +1393,11 @@ export const generateVehicleReport = async (vehicle, timeline, faults, equipment
             <div class="page">
                 <div class="header">
                     <div class="report-logo">
-                        <img src="${mainLogoBase64}" alt="Kademe Logo" class="header-logo" />
+                        <img src="${mainLogoBase64}" alt="${PDF_LOGO_ALT}" class="header-logo" />
                     </div>
                     <div class="company-title">
-                        <h1>KADEME A.Ş.</h1>
-                        <p>Kalite Yönetim Sistemi</p>
+                        <h1>${PDF_COMPANY_HEADLINE}</h1>
+                        <p>${PDF_COMPANY_TAGLINE}</p>
                     </div>
                     <div class="print-info">
                         Yazdır: ${reportNo.split('-').pop()}<br>
@@ -1408,7 +1408,7 @@ export const generateVehicleReport = async (vehicle, timeline, faults, equipment
                     <div class="meta-item"><strong>Belge Türü:</strong> Araç Kalite Raporu</div>
                     <div class="meta-item"><strong>No:</strong> ${reportNo}</div>
                     <div class="meta-item"><strong>Revizyon:</strong> 0</div>
-                    <div class="meta-item"><strong>Sistem:</strong> Kademe Kalite Yönetim Sistemi</div>
+                    <div class="meta-item"><strong>Sistem:</strong> ${PDF_SYSTEM_FULL_NAME}</div>
                     <div class="meta-item"><strong>Yayın Tarihi:</strong> ${reportDate}</div>
                     <div class="meta-item"><strong>Durum:</strong> ${vehicle.status || '-'}</div>
                 </div>
@@ -1534,7 +1534,7 @@ export const generateVehicleReport = async (vehicle, timeline, faults, equipment
                 ${faultsHtml}
                 
                 <div class="footer">
-                    Bu rapor, Kalite Yönetim Sistemi tarafından otomatik olarak oluşturulmuştur.
+                    Bu rapor, ${PDF_SYSTEM_FULL_NAME} tarafından otomatik olarak oluşturulmuştur.
                 </div>
             </div>
         </body>
@@ -1568,9 +1568,7 @@ export const generateVehicleReport = async (vehicle, timeline, faults, equipment
 };
 export const generateComplaintReport = async (complaint, analyses = [], actions = []) => {
     await preloadLogos();
-    // Logo base64 - public klasöründeki logo.png dosyasını kullan
-    const localLogoUrl = getLogoUrl('logo.png');
-    const mainLogoBase64 = logoCache[localLogoUrl] || localLogoUrl;
+    const mainLogoBase64 = getPrimaryLogoForPdf();
     const formatDate = (dateString) => dateString ? new Date(dateString).toLocaleDateString('tr-TR') : '-';
     const escapeHtml = (text) => {
         if (!text || typeof text !== 'string') return text || '-';
@@ -1720,7 +1718,7 @@ export const generateComplaintReport = async (complaint, analyses = [], actions 
         ((complaint.responsible_department || complaint.responsible_person || complaint.assigned_to) ? 4 : 3);
     const actionsSectionNum = analysesSectionNum + (analyses && analyses.length > 0 ? 1 : 0);
     
-    const htmlContent = `<!DOCTYPE html><html lang="tr"><head><meta charset="UTF-8"><title>Müşteri Şikayeti Raporu - ${reportNo}</title><style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');body{font-family:'Inter',sans-serif;color:#1f2937;margin:0;padding:0;background-color:#f3f4f6}.page{background-color:white;width:210mm;min-height:297mm;margin:20px auto;padding:10mm;box-sizing:border-box;box-shadow:0 0 10px rgba(0,0,0,0.1)}.header{display:grid;grid-template-columns:auto 1fr auto;gap:15px;align-items:center;border-bottom:1px solid #e5e7eb;padding-bottom:8px;margin-bottom:10px;page-break-inside:avoid}.header-logo{height:50px;width:auto}.company-title{text-align:center}.company-title h1{font-size:20px;font-weight:700;margin:0;color:#111827}.company-title p{font-size:12px;margin:0;color:#4b5563}.print-info{text-align:right;font-size:9px;color:#4b5563;line-height:1.4}.section{margin-bottom:20px;page-break-inside:avoid}.section-title{font-size:14px;font-weight:700;color:white;background-color:#1e40af;padding:6px 10px;border-radius:4px;margin-bottom:12px;text-transform:uppercase}.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.info-item{background-color:#f9fafb;border-radius:4px;padding:8px;border:1px solid #e5e7eb}.info-item .label{display:block;font-size:11px;color:#6b7280;margin-bottom:4px;font-weight:600}.info-item .value{font-size:13px;font-weight:600;color:#1f2937}.full-width{grid-column:1/-1}.description-box{background-color:#f9fafb;border-left:4px solid #3b82f6;padding:20px;border-radius:4px;margin-top:8px;min-height:100px;box-shadow:0 1px 3px rgba(0,0,0,0.05)}.description-box p{margin:0 0 12px 0;font-size:12px;line-height:1.7;color:#374151;text-align:justify}.description-box p:last-child{margin-bottom:0}.description-box p strong{color:#1e40af;font-weight:600}.footer{text-align:center;margin-top:20px;padding-top:10px;border-top:1px solid #e5e7eb;font-size:11px;color:#9ca3af}@media print{*{print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important;color-adjust:exact!important}body{background-color:white!important;margin:0!important;padding:0!important}.page{margin:0!important;box-shadow:none!important;border:none!important}@page{size:A4 portrait;margin:10mm}}</style></head><body><div class="page"><div class="header"><div class="report-logo"><img src="${mainLogoBase64}" alt="Kademe Logo" class="header-logo"/></div><div class="company-title"><h1>KADEME A.Ş.</h1><p>Kalite Yönetim Sistemi</p></div><div class="print-info">Rapor No: ${reportNo}<br>Tarih: ${reportDate}</div></div><div class="section"><h2 class="section-title">1. ŞİKAYET BİLGİLERİ</h2><div class="info-grid"><div class="info-item"><span class="label">Şikayet Numarası</span><span class="value">${escapeHtml(complaint.complaint_number||'-')}</span></div><div class="info-item"><span class="label">Şikayet Tarihi</span><span class="value">${formatDate(complaint.complaint_date)}</span></div><div class="info-item"><span class="label">Önem Seviyesi</span><span class="value">${getSeverityBadge(complaint.severity)}</span></div><div class="info-item"><span class="label">Durum</span><span class="value">${getStatusBadge(complaint.status)}</span></div><div class="info-item"><span class="label">Kaynak</span><span class="value">${escapeHtml(complaint.complaint_source||'-')}</span></div><div class="info-item"><span class="label">Kategori</span><span class="value">${escapeHtml(complaint.complaint_category||'-')}</span></div><div class="info-item full-width"><span class="label">Başlık</span><span class="value" style="font-size: 14px; font-weight: 700;">${escapeHtml(complaint.title||'-')}</span></div><div class="info-item full-width"><span class="label">Açıklama</span><div class="description-box">${formatDescription(complaint.description||'-')}</div></div></div></div><div class="section"><h2 class="section-title">2. MÜŞTERİ BİLGİLERİ</h2><div class="info-grid"><div class="info-item"><span class="label">Müşteri Adı</span><span class="value">${escapeHtml(complaint.customer?.customer_name||complaint.customer?.name||'-')}</span></div><div class="info-item"><span class="label">Müşteri Kodu</span><span class="value">${escapeHtml(complaint.customer?.customer_code||'-')}</span></div>${complaint.customer?.contact_person?`<div class="info-item"><span class="label">Yetkili Kişi</span><span class="value">${escapeHtml(complaint.customer.contact_person)}</span></div>`:''}${complaint.customer?.contact_email?`<div class="info-item"><span class="label">Email</span><span class="value">${escapeHtml(complaint.customer.contact_email)}</span></div>`:''}${complaint.customer?.contact_phone?`<div class="info-item"><span class="label">Telefon</span><span class="value">${escapeHtml(complaint.customer.contact_phone)}</span></div>`:''}</div></div>${(complaint.product_name||complaint.product_code||complaint.batch_number)?`<div class="section"><h2 class="section-title">3. ÜRÜN BİLGİLERİ</h2><div class="info-grid">${complaint.product_name?`<div class="info-item"><span class="label">Ürün Adı</span><span class="value">${escapeHtml(complaint.product_name)}</span></div>`:''}${complaint.product_code?`<div class="info-item"><span class="label">Ürün Kodu</span><span class="value">${escapeHtml(complaint.product_code)}</span></div>`:''}${complaint.batch_number?`<div class="info-item"><span class="label">Parti/Lot No</span><span class="value">${escapeHtml(complaint.batch_number)}</span></div>`:''}${complaint.quantity_affected?`<div class="info-item"><span class="label">Etkilenen Miktar</span><span class="value">${complaint.quantity_affected}</span></div>`:''}${complaint.production_date?`<div class="info-item"><span class="label">Üretim Tarihi</span><span class="value">${formatDate(complaint.production_date)}</span></div>`:''}</div></div>`:''}${(complaint.responsible_department||complaint.responsible_person||complaint.assigned_to)?`<div class="section"><h2 class="section-title">${(complaint.product_name||complaint.product_code||complaint.batch_number)?'4':'3'}. SORUMLULUK</h2><div class="info-grid">${complaint.responsible_department?.unit_name?`<div class="info-item"><span class="label">Sorumlu Departman</span><span class="value">${escapeHtml(complaint.responsible_department.unit_name)}</span></div>`:''}${complaint.responsible_person?.full_name?`<div class="info-item"><span class="label">Sorumlu Kişi</span><span class="value">${escapeHtml(complaint.responsible_person.full_name)}</span></div>`:''}${complaint.assigned_to?.full_name?`<div class="info-item"><span class="label">Atanan Kişi</span><span class="value">${escapeHtml(complaint.assigned_to.full_name)}</span></div>`:''}</div></div>`:''}${analyses && analyses.length > 0 ? `<div class="section"><h2 class="section-title">${analysesSectionNum}. ANALİZLER</h2>${analysesHtml}</div>` : ''}${actions && actions.length > 0 ? `<div class="section"><h2 class="section-title">${actionsSectionNum}. AKSİYONLAR</h2>${actionsHtml}</div>` : ''}<div class="footer">Bu rapor, Kalite Yönetim Sistemi tarafından otomatik olarak oluşturulmuştur.</div></div></body></html>`;
+    const htmlContent = `<!DOCTYPE html><html lang="tr"><head><meta charset="UTF-8"><title>Müşteri Şikayeti Raporu - ${reportNo}</title><style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');body{font-family:'Inter',sans-serif;color:#1f2937;margin:0;padding:0;background-color:#f3f4f6}.page{background-color:white;width:210mm;min-height:297mm;margin:20px auto;padding:10mm;box-sizing:border-box;box-shadow:0 0 10px rgba(0,0,0,0.1)}.header{display:grid;grid-template-columns:auto 1fr auto;gap:15px;align-items:center;border-bottom:1px solid #e5e7eb;padding-bottom:8px;margin-bottom:10px;page-break-inside:avoid}.header-logo{height:50px;width:auto}.company-title{text-align:center}.company-title h1{font-size:20px;font-weight:700;margin:0;color:#111827}.company-title p{font-size:12px;margin:0;color:#4b5563}.print-info{text-align:right;font-size:9px;color:#4b5563;line-height:1.4}.section{margin-bottom:20px;page-break-inside:avoid}.section-title{font-size:14px;font-weight:700;color:white;background-color:#1e40af;padding:6px 10px;border-radius:4px;margin-bottom:12px;text-transform:uppercase}.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.info-item{background-color:#f9fafb;border-radius:4px;padding:8px;border:1px solid #e5e7eb}.info-item .label{display:block;font-size:11px;color:#6b7280;margin-bottom:4px;font-weight:600}.info-item .value{font-size:13px;font-weight:600;color:#1f2937}.full-width{grid-column:1/-1}.description-box{background-color:#f9fafb;border-left:4px solid #3b82f6;padding:20px;border-radius:4px;margin-top:8px;min-height:100px;box-shadow:0 1px 3px rgba(0,0,0,0.05)}.description-box p{margin:0 0 12px 0;font-size:12px;line-height:1.7;color:#374151;text-align:justify}.description-box p:last-child{margin-bottom:0}.description-box p strong{color:#1e40af;font-weight:600}.footer{text-align:center;margin-top:20px;padding-top:10px;border-top:1px solid #e5e7eb;font-size:11px;color:#9ca3af}@media print{*{print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important;color-adjust:exact!important}body{background-color:white!important;margin:0!important;padding:0!important}.page{margin:0!important;box-shadow:none!important;border:none!important}@page{size:A4 portrait;margin:10mm}}</style></head><body><div class="page"><div class="header"><div class="report-logo"><img src="${mainLogoBase64}" alt="${PDF_LOGO_ALT}" class="header-logo"/></div><div class="company-title"><h1>${PDF_COMPANY_HEADLINE}</h1><p>${PDF_COMPANY_TAGLINE}</p></div><div class="print-info">Rapor No: ${reportNo}<br>Tarih: ${reportDate}</div></div><div class="section"><h2 class="section-title">1. ŞİKAYET BİLGİLERİ</h2><div class="info-grid"><div class="info-item"><span class="label">Şikayet Numarası</span><span class="value">${escapeHtml(complaint.complaint_number||'-')}</span></div><div class="info-item"><span class="label">Şikayet Tarihi</span><span class="value">${formatDate(complaint.complaint_date)}</span></div><div class="info-item"><span class="label">Önem Seviyesi</span><span class="value">${getSeverityBadge(complaint.severity)}</span></div><div class="info-item"><span class="label">Durum</span><span class="value">${getStatusBadge(complaint.status)}</span></div><div class="info-item"><span class="label">Kaynak</span><span class="value">${escapeHtml(complaint.complaint_source||'-')}</span></div><div class="info-item"><span class="label">Kategori</span><span class="value">${escapeHtml(complaint.complaint_category||'-')}</span></div><div class="info-item full-width"><span class="label">Başlık</span><span class="value" style="font-size: 14px; font-weight: 700;">${escapeHtml(complaint.title||'-')}</span></div><div class="info-item full-width"><span class="label">Açıklama</span><div class="description-box">${formatDescription(complaint.description||'-')}</div></div></div></div><div class="section"><h2 class="section-title">2. MÜŞTERİ BİLGİLERİ</h2><div class="info-grid"><div class="info-item"><span class="label">Müşteri Adı</span><span class="value">${escapeHtml(complaint.customer?.customer_name||complaint.customer?.name||'-')}</span></div><div class="info-item"><span class="label">Müşteri Kodu</span><span class="value">${escapeHtml(complaint.customer?.customer_code||'-')}</span></div>${complaint.customer?.contact_person?`<div class="info-item"><span class="label">Yetkili Kişi</span><span class="value">${escapeHtml(complaint.customer.contact_person)}</span></div>`:''}${complaint.customer?.contact_email?`<div class="info-item"><span class="label">Email</span><span class="value">${escapeHtml(complaint.customer.contact_email)}</span></div>`:''}${complaint.customer?.contact_phone?`<div class="info-item"><span class="label">Telefon</span><span class="value">${escapeHtml(complaint.customer.contact_phone)}</span></div>`:''}</div></div>${(complaint.product_name||complaint.product_code||complaint.batch_number)?`<div class="section"><h2 class="section-title">3. ÜRÜN BİLGİLERİ</h2><div class="info-grid">${complaint.product_name?`<div class="info-item"><span class="label">Ürün Adı</span><span class="value">${escapeHtml(complaint.product_name)}</span></div>`:''}${complaint.product_code?`<div class="info-item"><span class="label">Ürün Kodu</span><span class="value">${escapeHtml(complaint.product_code)}</span></div>`:''}${complaint.batch_number?`<div class="info-item"><span class="label">Parti/Lot No</span><span class="value">${escapeHtml(complaint.batch_number)}</span></div>`:''}${complaint.quantity_affected?`<div class="info-item"><span class="label">Etkilenen Miktar</span><span class="value">${complaint.quantity_affected}</span></div>`:''}${complaint.production_date?`<div class="info-item"><span class="label">Üretim Tarihi</span><span class="value">${formatDate(complaint.production_date)}</span></div>`:''}</div></div>`:''}${(complaint.responsible_department||complaint.responsible_person||complaint.assigned_to)?`<div class="section"><h2 class="section-title">${(complaint.product_name||complaint.product_code||complaint.batch_number)?'4':'3'}. SORUMLULUK</h2><div class="info-grid">${complaint.responsible_department?.unit_name?`<div class="info-item"><span class="label">Sorumlu Departman</span><span class="value">${escapeHtml(complaint.responsible_department.unit_name)}</span></div>`:''}${complaint.responsible_person?.full_name?`<div class="info-item"><span class="label">Sorumlu Kişi</span><span class="value">${escapeHtml(complaint.responsible_person.full_name)}</span></div>`:''}${complaint.assigned_to?.full_name?`<div class="info-item"><span class="label">Atanan Kişi</span><span class="value">${escapeHtml(complaint.assigned_to.full_name)}</span></div>`:''}</div></div>`:''}${analyses && analyses.length > 0 ? `<div class="section"><h2 class="section-title">${analysesSectionNum}. ANALİZLER</h2>${analysesHtml}</div>` : ''}${actions && actions.length > 0 ? `<div class="section"><h2 class="section-title">${actionsSectionNum}. AKSİYONLAR</h2>${actionsHtml}</div>` : ''}<div class="footer">Bu rapor, ${PDF_SYSTEM_FULL_NAME} tarafından otomatik olarak oluşturulmuştur.</div></div></body></html>`;
     const blob = new Blob([htmlContent], { type: 'text/html' });
     const url = URL.createObjectURL(blob);
     if (window.printWindow && !window.printWindow.closed) window.printWindow.close();

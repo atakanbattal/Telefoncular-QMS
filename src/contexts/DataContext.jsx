@@ -115,7 +115,7 @@ export const DataProvider = ({ children }) => {
 
         // DALGA 0: Minimal veri - arayüz hemen açılsın (~1-2 sn)
         const instantPromises = {
-            personnel: supabase.from('personnel').select('id, full_name, email, avatar_url, department, unit_id, is_active, registration_number, job_title, management_department, collar_type, unit:cost_settings(unit_name)').order('full_name'),
+            personnel: supabase.from('personnel').select('id, full_name, email, avatar_url, department, unit_id, is_active, registration_number, job_title, management_department, collar_type').order('full_name'),
             productionDepartments: supabase.from('production_departments').select('*'),
             taskTags: supabase.from('task_tags').select('*'),
             taskProjects: supabase.from('task_projects').select('*').order('name'),
@@ -359,7 +359,14 @@ export const DataProvider = ({ children }) => {
             instantResults.forEach((result, index) => {
                 const key = instantKeys[index];
                 const val = result.status === 'fulfilled' ? result.value : null;
-                newState[key] = (val && !val.error && val.data) ? val.data : [];
+                if (val?.error) {
+                    if (key === 'personnel') {
+                        console.warn('⚠️ Personel (DataContext) çekilemedi:', val.error.message || val.error);
+                    }
+                    newState[key] = [];
+                    return;
+                }
+                newState[key] = val?.data ?? [];
             });
             setData(prev => ({ ...prev, ...newState }));
             setLoading(false); // Arayüz hemen göster

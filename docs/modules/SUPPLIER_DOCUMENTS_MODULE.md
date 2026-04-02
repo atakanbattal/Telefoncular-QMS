@@ -54,7 +54,7 @@ scripts/create-supplier-documents-complete.sql
 ```
 
 **Adımlar:**
-1. https://app.supabase.com/project/rqnvoatirfczpklaamhf/sql adresine gidin
+1. https://app.supabase.com/project/ryvczrubujzlanvqiqlk/sql adresine gidin
 2. SQL Editor'ü açın
 3. `scripts/create-supplier-documents-complete.sql` dosyasının içeriğini yapıştırın
 4. Run butonuna tıklayın

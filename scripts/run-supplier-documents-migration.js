@@ -12,7 +12,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Supabase bağlantı bilgileri
-const supabaseUrl = 'https://rqnvoatirfczpklaamhf.supabase.co';
+const supabaseUrl = 'https://ryvczrubujzlanvqiqlk.supabase.co';
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJxbnZvYXRpcmZjenBrbGFhbWhmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NjgxNDgxMiwiZXhwIjoyMDcyMzkwODEyfQ.2YJmKcpk1kHbAOc-H9s37NbUY74QJuqIYB1Z2ssusa4';
 
 const supabase = createClient(supabaseUrl, supabaseServiceKey, {
@@ -75,7 +75,7 @@ async function runMigration() {
                     console.log('');
                     console.log('⚠️  exec_sql fonksiyonu yok');
                     console.log('📝 Lütfen Supabase Dashboard\'da çalıştırın:');
-                    console.log('   https://app.supabase.com/project/rqnvoatirfczpklaamhf/sql');
+                    console.log('   https://app.supabase.com/project/ryvczrubujzlanvqiqlk/sql');
                     console.log('');
                     break;
                 }
@@ -112,7 +112,7 @@ async function runMigration() {
         console.error('');
         console.error('📝 Çözüm:');
         console.error('Supabase Dashboard\'da direkt çalıştırın:');
-        console.error('  1. https://app.supabase.com/project/rqnvoatirfczpklaamhf/sql');
+        console.error('  1. https://app.supabase.com/project/ryvczrubujzlanvqiqlk/sql');
         console.error('  2. SQL Editor\'ü açın');
         console.error('  3. scripts/create-supplier-documents-complete.sql dosyasının içeriğini yapıştırın');
         console.error('  4. Run butonuna tıklayın');

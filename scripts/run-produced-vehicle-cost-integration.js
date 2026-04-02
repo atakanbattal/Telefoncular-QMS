@@ -12,7 +12,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Supabase bağlantı bilgileri
-const supabaseUrl = process.env.VITE_SUPABASE_URL || 'https://rqnvoatirfczpklaamhf.supabase.co';
+const supabaseUrl = process.env.VITE_SUPABASE_URL || 'https://ryvczrubujzlanvqiqlk.supabase.co';
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_SERVICE_KEY;
 
 if (!supabaseServiceKey) {
@@ -125,7 +125,7 @@ async function runMigration() {
                     console.log('');
                     console.log('⚠️  exec_sql RPC fonksiyonu bulunamadı');
                     console.log('📝 Alternatif: SQL dosyasını Supabase Dashboard\'da çalıştırın:');
-                    console.log('   https://app.supabase.com/project/rqnvoatirfczpklaamhf/sql');
+                    console.log('   https://app.supabase.com/project/ryvczrubujzlanvqiqlk/sql');
                     console.log('');
                     console.log('SQL içeriği:');
                     console.log('================================================');
@@ -159,7 +159,7 @@ async function runMigration() {
         console.error('');
         console.error('💡 Çözüm:');
         console.error('  1. Supabase Dashboard\'a gidin:');
-        console.error('     https://app.supabase.com/project/rqnvoatirfczpklaamhf/sql');
+        console.error('     https://app.supabase.com/project/ryvczrubujzlanvqiqlk/sql');
         console.error('');
         console.error('  2. SQL Editor\'ü açın');
         console.error('');
