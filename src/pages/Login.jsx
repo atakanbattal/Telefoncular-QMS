@@ -49,7 +49,8 @@ const Login = () => {
         return;
     }
     
-    const emailToLogin = email.includes('@') ? email : `${email}@kademe.com`;
+    const trimmed = email.trim();
+    const emailToLogin = (trimmed.includes('@') ? trimmed : `${trimmed}@kademe.com`).toLowerCase();
 
     try {
       const { data, error } = await signIn(emailToLogin, password);
