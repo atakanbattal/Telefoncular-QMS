@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useToast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
@@ -186,11 +185,6 @@ const DeviationModule = ({ onOpenNCForm }) => {
 
     return (
         <div className="space-y-6">
-            <Helmet>
-                <title>Kademe A.Ş. Kalite Yönetim Sistemi</title>
-                <meta name="description" content="Üretim ve süreç sapmalarını yönetin, onay süreçlerini takip edin." />
-            </Helmet>
-
             <div className="flex justify-end items-center gap-3">
                 <div className="flex items-center gap-2">
                     <Button variant="outline" onClick={handleGenerateReport}>

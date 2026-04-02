@@ -20,6 +20,8 @@ import NCViewModal from '@/components/df-8d/NCViewModal';
 import NCFormModal from '@/components/df-8d/NCFormModal';
 import { PageLoader } from '@/components/shared/LoadingSpinner';
 import { lazyWithRetry } from '@/lib/lazyWithRetry';
+import { Helmet } from 'react-helmet-async';
+import { moduleTitle } from '@/lib/appBranding';
 
 // Dashboard direkt yüklenir (ilk görünen sayfa)
 import Dashboard from '@/components/dashboard/Dashboard';
@@ -557,6 +559,9 @@ const MainLayout = () => {
 
     return (
         <>
+            <Helmet>
+                <title>{moduleTitle(moduleTitles[activeModule] || 'Ana Panel')}</title>
+            </Helmet>
             <NCFormModal isOpen={ncFormState.isOpen} setIsOpen={(open) => setNcFormState(s => ({ ...s, isOpen: open }))} record={ncFormState.record} onSave={handleSaveNC} onSaveSuccess={onGlobalSaveSuccess} />
             <NCViewModal isOpen={ncViewState.isOpen} setIsOpen={(open) => setNcViewState(s => ({ ...s, isOpen: open }))} record={ncViewState.record} onEdit={handleOpenNCForm} onDownloadPDF={handleDownloadPDF} />
             <PdfViewerModal isOpen={pdfViewerState.isOpen} setIsOpen={(open) => setPdfViewerState(s => ({ ...s, isOpen: open }))} pdfUrl={pdfViewerState.url} title={pdfViewerState.title} />

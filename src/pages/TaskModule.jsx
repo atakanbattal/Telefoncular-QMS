@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -283,10 +282,6 @@ const TaskModule = () => {
 
     return (
         <div className="h-[calc(100vh-5rem)] flex overflow-hidden -mt-2">
-            <Helmet>
-                <title>Görev Yönetimi | Kademe A.Ş.</title>
-            </Helmet>
-
             {/* ===== SIDEBAR ===== */}
             <aside className={cn(
                 "bg-card border-r border-border flex flex-col transition-all duration-300 ease-in-out shrink-0",

@@ -1,6 +1,5 @@
 
 import React, { useState, useMemo, useEffect, useCallback, useRef, lazy, Suspense } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useToast } from '@/components/ui/use-toast';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -770,11 +769,6 @@ const IncomingQualityModule = ({ onOpenNCForm, onOpenNCView }) => {
 
     return (
         <div className="space-y-6">
-            <Helmet>
-                <title>Kademe A.Ş. Kalite Yönetim Sistemi</title>
-                <meta name="description" content="Gelen malzeme kalite kontrol süreçlerini yönetin." />
-            </Helmet>
-
             <IncomingQualityDashboard inspections={dashboardData} loading={dashboardLoading} onCardClick={handleCardClick} inkrReports={inkrReports} inkrMissingCount={inkrMissingCount} controlPlanMissingCount={controlPlanMissingCount} />
 
             <Tabs value={activeTab} className="w-full" onValueChange={handleTabChange}>

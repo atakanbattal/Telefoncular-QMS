@@ -8,9 +8,12 @@ import { useToast } from '@/components/ui/use-toast';
 import { LogIn } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { APP_BRAND } from '@/lib/appBranding';
 
-const APP_BRAND = 'Telefoncular QMS';
-const loginEmailDomain = import.meta.env.VITE_LOGIN_EMAIL_DOMAIN || 'kademe.com';
+/** Kullanıcı adı @ içermiyorsa eklenecek alan adı (tam e-posta yazılabilir). */
+const loginEmailDomain = import.meta.env.VITE_LOGIN_EMAIL_DOMAIN || 'telefoncular.com.tr';
+/** Giriş ekranı alt bilgisi — ortam değişkeninden bağımsız (Kademe kalıntısı olmasın). */
+const LOGIN_FOOTER_COPY = 'Telefoncular QMS — Kalite Yönetim Sistemi';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -133,8 +136,6 @@ const Login = () => {
     }
   };
 
-  const footerLabel = import.meta.env.VITE_APP_NAME || APP_BRAND;
-
   return (
     <div className="flex items-center justify-center min-h-screen bg-background p-4">
       <Helmet>
@@ -185,7 +186,7 @@ const Login = () => {
           </form>
         </div>
         <p className="text-center text-xs text-muted-foreground mt-6">
-          © {new Date().getFullYear()} {footerLabel}
+          © {new Date().getFullYear()} {LOGIN_FOOTER_COPY}
         </p>
       </motion.div>
     </div>

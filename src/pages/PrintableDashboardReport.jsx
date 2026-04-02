@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { moduleTitle } from '@/lib/appBranding';
 import { Loader2 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend, LineChart, Line } from 'recharts';
 import { format, startOfToday, parseISO } from 'date-fns';
@@ -66,7 +67,7 @@ const PrintableDashboardReport = () => {
     return (
         <>
             <Helmet>
-                <title>Kademe A.Ş. Kalite Yönetim Sistemi</title>
+                <title>{moduleTitle('Yönetim Paneli Raporu')}</title>
             </Helmet>
             <div className="report-container">
                 <style>{`

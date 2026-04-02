@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { APP_BRAND } from '@/lib/appBranding';
 import { supabase } from '@/lib/customSupabaseClient';
 import { generatePrintableReportHtml, getReportTitle } from '@/lib/reportUtils';
 import { buildMeasurementBundle } from '@/components/process-control/processInspectionUtils';
@@ -841,7 +842,7 @@ const PrintableReport = () => {
     return (
         <>
             <Helmet>
-                <title>{reportTitle || 'Kademe A.Ş. Kalite Yönetim Sistemi'}</title>
+                <title>{reportTitle || APP_BRAND}</title>
             </Helmet>
             <iframe
                 ref={iframeRef}

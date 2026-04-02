@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { APP_BRAND, moduleTitle } from '@/lib/appBranding';
 import { Loader2 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, CartesianGrid, Legend } from 'recharts';
 import { format, startOfToday, addDays, startOfMonth, endOfMonth, parseISO, isValid } from 'date-fns';
@@ -339,7 +340,7 @@ const PrintableInternalAuditDashboard = () => {
     return (
         <>
             <Helmet>
-                <title>Kademe A.Ş. Kalite Yönetim Sistemi</title>
+                <title>{moduleTitle('İç Tetkik Özet Raporu')}</title>
             </Helmet>
             <div className="report-container">
                 <style>{`
@@ -413,7 +414,7 @@ const PrintableInternalAuditDashboard = () => {
                         </p>
                     )}
                     <p style={{ fontSize: '14px', color: '#888', marginTop: '5px' }}>
-                        Kademe A.Ş. Kalite Yönetim Sistemi
+                        {APP_BRAND} — Kalite Yönetim Sistemi
                     </p>
                 </header>
 
@@ -708,8 +709,8 @@ const PrintableInternalAuditDashboard = () => {
                     color: '#888',
                     fontSize: '12px'
                 }}>
-                    <p>Bu rapor Kademe Kalite Yönetim Sistemi tarafından otomatik olarak oluşturulmuştur.</p>
-                    <p>© {new Date().getFullYear()} Kademe A.Ş. - Tüm hakları saklıdır.</p>
+                    <p>Bu rapor {APP_BRAND} tarafından otomatik olarak oluşturulmuştur.</p>
+                    <p>© {new Date().getFullYear()} {APP_BRAND} — Tüm hakları saklıdır.</p>
                 </footer>
             </div>
         </>

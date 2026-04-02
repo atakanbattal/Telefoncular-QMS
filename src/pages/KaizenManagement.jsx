@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { useToast } from "@/components/ui/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -108,10 +107,6 @@ const KaizenManagement = () => {
 
     return (
         <>
-            <Helmet>
-                <title>Kademe A.Ş. Kalite Yönetim Sistemi</title>
-                <meta name="description" content="Sürekli iyileştirme (Kaizen) faaliyetlerini yönetin, takip edin ve raporlayın." />
-            </Helmet>
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

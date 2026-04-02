@@ -1,6 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { APP_BRAND } from '@/lib/appBranding';
 import { Loader2 } from 'lucide-react';
 import {
     BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
@@ -504,7 +505,7 @@ const A3QualityBoardReport = () => {
 
     return (
         <>
-            <Helmet><title>Kalite Panosu – {periodLabel}</title></Helmet>
+            <Helmet><title>Kalite Panosu – {periodLabel} | {APP_BRAND}</title></Helmet>
             <style>{css}</style>
             <div ref={wrapRef} className="wrap" lang="tr">
 
@@ -518,7 +519,7 @@ const A3QualityBoardReport = () => {
                 }}>
                     <div>
                         <div style={{ fontSize:24, fontWeight:900, letterSpacing:0.6 }}>KALİTE YÖNETİM SİSTEMİ — PERFORMANS ÖZETİ</div>
-                        <div style={{ fontSize:12, opacity:0.85, marginTop:3 }}>Kademe A.Ş. · Tüm Modüller · Özet Performans Göstergesi</div>
+                        <div style={{ fontSize:12, opacity:0.85, marginTop:3 }}>{APP_BRAND} · Tüm Modüller · Özet Performans Göstergesi</div>
                     </div>
                     <div style={{ textAlign:'right' }}>
                         <div style={{ fontSize:15, fontWeight:800 }}>Dönem: {periodLabel}</div>
@@ -1985,7 +1986,7 @@ const A3QualityBoardReport = () => {
                     padding:'8px 16px', display:'flex', justifyContent:'space-between', alignItems:'center',
                 }}>
                     <div style={{fontSize:10,color:C.gray}}>
-                        <strong>Kademe A.Ş.</strong> — Kalite Yönetim Sistemi | Otomatik oluşturulmuştur.
+                        <strong>{APP_BRAND}</strong> — Kalite Yönetim Sistemi | Otomatik oluşturulmuştur.
                     </div>
                     <div style={{fontSize:10,color:C.gray}}>
                         Dönem: <strong>{periodLabel}</strong> &nbsp;|&nbsp;

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-    import { Helmet } from 'react-helmet-async';
     import { Button } from '@/components/ui/button';
     import { useToast } from '@/components/ui/use-toast';
     import { supabase } from '@/lib/customSupabaseClient';
@@ -84,11 +83,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 
         return (
             <div className="space-y-6">
-                <Helmet>
-                    <title>Kademe A.Ş. Kalite Yönetim Sistemi</title>
-                    <meta name="description" content="Kaynak Prosedür Şartnamelerini (WPS) yönetin." />
-                </Helmet>
-
                 <div className="flex justify-end items-center">
                     <Button onClick={() => handleOpenModal(null, false)}>
                         <Plus className="mr-2 h-4 w-4" />

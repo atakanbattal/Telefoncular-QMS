@@ -2,7 +2,6 @@ import React, { useState, useMemo, useCallback } from 'react';
 import { useData } from '@/contexts/DataContext';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useToast } from '@/components/ui/use-toast';
-import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { LayoutDashboard, List, Plus, FileText } from 'lucide-react';
@@ -487,9 +486,6 @@ const Df8dManagement = ({ onOpenNCForm, onOpenNCView, onDownloadPDF }) => {
 
         return (
             <>
-                <Helmet>
-                    <title>Kademe A.Ş. Kalite Yönetim Sistemi</title>
-                </Helmet>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}

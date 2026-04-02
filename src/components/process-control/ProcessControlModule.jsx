@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useToast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
@@ -143,9 +142,6 @@ const ProcessControlModule = ({ onOpenNCForm, onOpenNCView }) => {
 
     return (
         <>
-            <Helmet>
-                <title>Kademe A.Ş. Kalite Yönetim Sistemi</title>
-            </Helmet>
             <div className="space-y-6">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>

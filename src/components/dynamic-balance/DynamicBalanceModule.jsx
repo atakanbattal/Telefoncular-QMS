@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { Plus, FileText, List, BarChart3 } from 'lucide-react';
 import { supabase } from '@/lib/customSupabaseClient';
@@ -92,9 +91,6 @@ const DynamicBalanceModule = () => {
 
     return (
         <>
-            <Helmet>
-                <title>Kademe A.Ş. Kalite Yönetim Sistemi</title>
-            </Helmet>
             <div className="space-y-6">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>

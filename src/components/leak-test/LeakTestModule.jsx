@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { BarChart3, Droplets, List, Plus } from 'lucide-react';
 
@@ -134,10 +133,6 @@ const LeakTestModule = () => {
 
     return (
         <>
-            <Helmet>
-                <title>Sızdırmazlık Kontrol | Kademe QMS</title>
-            </Helmet>
-
             <div className="space-y-6">
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
