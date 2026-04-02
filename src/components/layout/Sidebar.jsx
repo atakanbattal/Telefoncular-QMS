@@ -122,8 +122,7 @@ const Sidebar = ({
           <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
             <ShieldCheck className="h-8 w-8 sm:h-10 sm:w-10 text-primary shrink-0" />
             <div className="min-w-0 flex-1">
-              <h1 className="text-base sm:text-lg font-bold leading-tight truncate">Kademe A.Ş.</h1>
-              <p className="text-[10px] sm:text-xs text-muted-foreground truncate">Kalite Yönetim Sistemi</p>
+              <h1 className="text-base sm:text-lg font-bold leading-tight truncate">Telefoncular QMS</h1>
             </div>
           </div>
           <Button
