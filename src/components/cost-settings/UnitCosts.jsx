@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Save, Trash2, Plus, Edit } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
+import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,6 +13,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 
 const UnitCostModal = ({ open, setOpen, onSave, existingUnit }) => {
     const { toast } = useToast();
+    const { profile } = useAuth();
     const [unitName, setUnitName] = useState('');
     const [costPerMinute, setCostPerMinute] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -34,7 +36,11 @@ const UnitCostModal = ({ open, setOpen, onSave, existingUnit }) => {
             return;
         }
         setIsSubmitting(true);
-        const unitData = { unit_name: unitName, cost_per_minute: parseFloat(costPerMinute) };
+        const unitData = {
+            unit_name: unitName,
+            cost_per_minute: parseFloat(costPerMinute),
+            organization_id: profile?.organization_id ?? null,
+        };
 
         let error;
         if (isEditMode) {
