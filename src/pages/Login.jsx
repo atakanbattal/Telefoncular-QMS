@@ -7,6 +7,10 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
 import { LogIn } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+
+const APP_BRAND = 'Telefoncular QMS';
+const loginEmailDomain = import.meta.env.VITE_LOGIN_EMAIL_DOMAIN || 'kademe.com';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -50,7 +54,7 @@ const Login = () => {
     }
     
     const trimmed = email.trim();
-    const emailToLogin = (trimmed.includes('@') ? trimmed : `${trimmed}@kademe.com`).toLowerCase();
+    const emailToLogin = (trimmed.includes('@') ? trimmed : `${trimmed}@${loginEmailDomain}`).toLowerCase();
 
     try {
       const { data, error } = await signIn(emailToLogin, password);
@@ -93,7 +97,7 @@ const Login = () => {
       if (data?.session) {
         toast({
           title: "Giriş Başarılı!",
-          description: "Kalite Yönetim Sistemine hoş geldiniz.",
+          description: `${APP_BRAND}'e hoş geldiniz.`,
           duration: 3000,
         });
         setLoading(false); // useEffect yönlendirene kadar butonu serbest bırak
@@ -129,8 +133,13 @@ const Login = () => {
     }
   };
 
+  const footerLabel = import.meta.env.VITE_APP_NAME || APP_BRAND;
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-background p-4">
+      <Helmet>
+        <title>Giriş | {APP_BRAND}</title>
+      </Helmet>
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -139,7 +148,7 @@ const Login = () => {
       >
         <div className="bg-card border border-border rounded-2xl shadow-2xl p-8 space-y-6">
           <div className="text-center">
-            <h1 className="text-3xl font-bold text-foreground tracking-tight">Kademe QMS</h1>
+            <h1 className="text-3xl font-bold text-foreground tracking-tight">{APP_BRAND}</h1>
             <p className="text-muted-foreground mt-2">Giriş yapmak için bilgilerinizi girin</p>
           </div>
 
@@ -150,7 +159,7 @@ const Login = () => {
                 id="email"
                 data-testid="login-email"
                 type="text"
-                placeholder="ornek@kademe.com"
+                placeholder={`ornek@${loginEmailDomain}`}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={loading}
@@ -176,7 +185,7 @@ const Login = () => {
           </form>
         </div>
         <p className="text-center text-xs text-muted-foreground mt-6">
-          © {new Date().getFullYear()} Kademe A.Ş. Kalite Yönetim Sistemi
+          © {new Date().getFullYear()} {footerLabel}
         </p>
       </motion.div>
     </div>
