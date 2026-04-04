@@ -32,12 +32,12 @@ export const ViewModalLayout = ({
                 <DialogHeader className="sr-only">
                     <DialogTitle>{title}</DialogTitle>
                 </DialogHeader>
-                <header className="bg-gradient-to-r from-primary to-blue-700 px-6 py-5 flex items-center justify-between text-white shrink-0">
+                <header className="bg-gradient-to-r from-primary to-blue-700 px-5 sm:px-6 py-4 sm:py-5 flex items-center justify-between text-white shrink-0">
                     <div className="flex items-center gap-4">
-                        <div className="bg-white/20 p-2.5 rounded-lg">{icon}</div>
+                        <div className="bg-white/20 p-2.5 rounded-xl backdrop-blur-sm">{icon}</div>
                         <div>
-                            <h1 className="text-lg font-bold tracking-tight">{title}</h1>
-                            <p className="text-[11px] text-blue-100 uppercase tracking-[0.15em] font-medium">{subtitle}</p>
+                            <h1 className="text-base sm:text-lg font-bold tracking-tight font-headline">{title}</h1>
+                            <p className="text-[11px] text-blue-100 uppercase tracking-[0.15em] font-semibold">{subtitle}</p>
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -48,7 +48,7 @@ export const ViewModalLayout = ({
                         </Button>
                     </div>
                 </header>
-                <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden px-6 py-4 pb-6">
+                <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden px-5 sm:px-6 py-4 sm:py-5 pb-6">
                     {children}
                 </div>
             </DialogContent>

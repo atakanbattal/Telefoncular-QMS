@@ -39,29 +39,29 @@ const EmptyState = ({
     return (
         <div className={cn(
             'flex flex-col items-center justify-center text-center',
-            compact ? 'py-6 px-4' : 'py-12 px-6',
+            compact ? 'py-8 px-4' : 'py-16 px-6',
             className,
         )}>
             <div className={cn(
-                'rounded-full bg-muted flex items-center justify-center',
-                compact ? 'h-10 w-10 mb-3' : 'h-16 w-16 mb-4',
+                'rounded-2xl bg-muted/60 flex items-center justify-center',
+                compact ? 'h-12 w-12 mb-3' : 'h-20 w-20 mb-5',
             )}>
                 {React.isValidElement(Icon) ? Icon : (
                     <Icon className={cn(
                         'text-muted-foreground',
-                        compact ? 'h-5 w-5' : 'h-8 w-8',
+                        compact ? 'h-5 w-5' : 'h-9 w-9',
                     )} />
                 )}
             </div>
             <h3 className={cn(
-                'font-semibold text-foreground',
+                'font-bold text-foreground font-headline',
                 compact ? 'text-sm mb-1' : 'text-lg mb-2',
             )}>
                 {displayTitle}
             </h3>
             <p className={cn(
                 'text-muted-foreground max-w-sm',
-                compact ? 'text-xs mb-3' : 'text-sm mb-4',
+                compact ? 'text-xs mb-3' : 'text-sm mb-5',
             )}>
                 {displayDescription}
             </p>
@@ -70,6 +70,7 @@ const EmptyState = ({
                     onClick={onAction}
                     size={compact ? 'sm' : 'default'}
                     variant="outline"
+                    className="rounded-lg"
                 >
                     <Plus className="h-4 w-4 mr-1.5" />
                     {actionLabel}

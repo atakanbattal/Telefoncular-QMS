@@ -5,3 +5,13 @@
     Header set Pragma "no-cache"
   </Files>
 </IfModule>
+
+# favicon ve diğer gerçek dosyalar SPA'ya düşmesin — yoksa tarayıcı HTML'i ikon sanır
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>

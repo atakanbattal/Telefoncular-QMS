@@ -56,15 +56,14 @@ const FileUploader = ({
 
     return (
         <div className={cn('space-y-3', className)}>
-            {/* Drop Zone */}
             <div
                 {...(getRootProps ? getRootProps() : {})}
                 className={cn(
-                    'border-2 border-dashed rounded-lg transition-colors cursor-pointer',
-                    compact ? 'p-3' : 'p-6',
+                    'border-2 border-dashed rounded-xl transition-all cursor-pointer',
+                    compact ? 'p-4' : 'p-6',
                     isDragActive
-                        ? 'border-primary bg-primary/5'
-                        : 'border-muted-foreground/25 hover:border-primary/50 hover:bg-muted/50',
+                        ? 'border-primary bg-primary/5 scale-[1.01]'
+                        : 'border-muted-foreground/20 hover:border-primary/40 hover:bg-muted/30',
                     disabled && 'opacity-50 cursor-not-allowed',
                     uploading && 'pointer-events-none opacity-70',
                 )}
@@ -72,14 +71,19 @@ const FileUploader = ({
                 {getInputProps && <input {...getInputProps()} disabled={disabled || uploading} />}
                 <div className={cn(
                     'flex flex-col items-center text-center',
-                    compact ? 'gap-1' : 'gap-2',
+                    compact ? 'gap-1.5' : 'gap-2.5',
                 )}>
-                    <UploadCloud className={cn(
-                        'text-muted-foreground',
-                        compact ? 'h-5 w-5' : 'h-8 w-8',
-                    )} />
+                    <div className={cn(
+                        'rounded-xl bg-primary/10 flex items-center justify-center',
+                        compact ? 'h-10 w-10' : 'h-14 w-14',
+                    )}>
+                        <UploadCloud className={cn(
+                            'text-primary',
+                            compact ? 'h-5 w-5' : 'h-7 w-7',
+                        )} />
+                    </div>
                     <p className={cn(
-                        'font-medium text-foreground',
+                        'font-semibold text-foreground',
                         compact ? 'text-xs' : 'text-sm',
                     )}>
                         {isDragActive ? 'Dosyayı bırakın...' : label}
@@ -90,21 +94,19 @@ const FileUploader = ({
                 </div>
             </div>
 
-            {/* Upload Progress */}
             {uploading && (
-                <div className="space-y-1.5">
+                <div className="space-y-2">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                        <span>Yükleniyor... {uploadProgress}%</span>
+                        <Loader2 className="h-4 w-4 animate-spin text-primary" />
+                        <span className="font-medium">Yükleniyor... {uploadProgress}%</span>
                     </div>
                     <Progress value={uploadProgress} className="h-2" />
                 </div>
             )}
 
-            {/* Seçilen Dosyalar */}
             {files.length > 0 && (
-                <div className="space-y-1.5">
-                    <p className="text-xs font-medium text-muted-foreground">
+                <div className="space-y-2">
+                    <p className="text-xs font-semibold text-muted-foreground">
                         {files.length} dosya seçildi
                     </p>
                     <div className={cn(
@@ -114,10 +116,10 @@ const FileUploader = ({
                         {files.map((file, index) => (
                             <div
                                 key={`${file.name}-${index}`}
-                                className="flex items-center gap-2 p-2 rounded-md bg-muted/50 group"
+                                className="flex items-center gap-2.5 p-2.5 rounded-lg bg-muted/40 group transition-colors hover:bg-muted/60"
                             >
                                 {getFileIcon(file)}
-                                <span className="text-xs text-foreground flex-1 truncate">
+                                <span className="text-xs text-foreground flex-1 truncate font-medium">
                                     {file.name}
                                 </span>
                                 <span className="text-xs text-muted-foreground shrink-0">
@@ -128,7 +130,7 @@ const FileUploader = ({
                                         type="button"
                                         variant="ghost"
                                         size="icon"
-                                        className="h-5 w-5 opacity-0 group-hover:opacity-100 transition-opacity"
+                                        className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity rounded-md"
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             onRemoveFile(file);
@@ -143,11 +145,10 @@ const FileUploader = ({
                 </div>
             )}
 
-            {/* Hatalar */}
             {errors.length > 0 && (
                 <div className="space-y-1">
                     {errors.map((err, index) => (
-                        <p key={index} className="text-xs text-destructive">
+                        <p key={index} className="text-xs text-destructive font-medium">
                             {typeof err === 'string' ? err : err.message || 'Bir hata oluştu'}
                         </p>
                     ))}

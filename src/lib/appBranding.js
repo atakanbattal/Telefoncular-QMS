@@ -12,11 +12,13 @@ export const PDF_SYSTEM_FULL_NAME = 'Telefoncular Kalite Yönetim Sistemi';
 
 export const PDF_LOGO_ALT = 'Telefoncular';
 
+/** Wordmark — sidebar, giriş, PDF vb. Sekme ikonu: `public/favicon.png` + `favicon.ico` (gerçek dosya; SPA HTML’e düşmemeli). */
+export const PUBLIC_BRAND_LOGO = '/logo-wordmark.png';
+
 /**
  * public/ altında sırayla yüklenir; ilk bulunan kullanılır.
- * Gerçek marka logosunu `public/telefoncular-logo.png` olarak ekleyin.
  */
-export const PDF_LOGO_FILES = ['telefoncular-logo.png', 'logo.png', 'kademe-favicon.png'];
+export const PDF_LOGO_FILES = ['logo-wordmark.png', 'telefoncular-logo.png', 'logo.png'];
 
 /** Eğitim sertifikası üst kurum satırı */
 export const PDF_CERTIFICATE_ORG_LINE = 'TELEFONCULAR';

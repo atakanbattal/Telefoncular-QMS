@@ -8,7 +8,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { LogIn } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { APP_BRAND } from '@/lib/appBranding';
+import { APP_BRAND, PUBLIC_BRAND_LOGO } from '@/lib/appBranding';
 
 /** Kullanıcı adı @ içermiyorsa eklenecek alan adı (tam e-posta yazılabilir). */
 const loginEmailDomain = import.meta.env.VITE_LOGIN_EMAIL_DOMAIN || 'telefoncular.com.tr';
@@ -29,14 +29,12 @@ const Login = () => {
 
   useEffect(() => {
     if (session) {
-      // Giriş başarılı - yönlendir (signedout=1 olsa bile, kullanıcı yeni giriş yaptı)
       if (isSignedOut && window.history.replaceState) {
         window.history.replaceState({}, '', '/login');
       }
       setLoading(false);
       navigate(from, { replace: true });
     } else if (isSignedOut && window.history.replaceState) {
-      // Çıkış sonrası geldik, session yok - URL'yi temizle, otomatik yönlendirme yapma
       window.history.replaceState({}, '', '/login');
     }
   }, [session, navigate, from, isSignedOut]);
@@ -64,7 +62,6 @@ const Login = () => {
       
       if (error) {
         setLoading(false);
-        // Kullanıcıya anlamlı hata mesajı göster
         let errorMessage = "Giriş başarısız. Lütfen bilgilerinizi kontrol edin.";
         let errorTitle = "Giriş Başarısız";
         
@@ -86,7 +83,6 @@ const Login = () => {
           }
         }
         
-        // Hata mesajını göster
         console.error('Login failed:', error);
         toast({
           variant: "destructive",
@@ -103,9 +99,8 @@ const Login = () => {
           description: `${APP_BRAND}'e hoş geldiniz.`,
           duration: 3000,
         });
-        setLoading(false); // useEffect yönlendirene kadar butonu serbest bırak
+        setLoading(false);
       } else {
-        // Session yoksa hata göster
         setLoading(false);
         toast({
           variant: "destructive",
@@ -147,14 +142,26 @@ const Login = () => {
         transition={{ duration: 0.5 }}
         className="w-full max-w-md"
       >
-        <div className="bg-card border border-border rounded-2xl shadow-2xl p-8 space-y-6">
-          <div className="text-center">
-            <h1 className="text-3xl font-bold text-foreground tracking-tight">{APP_BRAND}</h1>
-            <p className="text-muted-foreground mt-2">Giriş yapmak için bilgilerinizi girin</p>
+        <div className="bg-card border border-border/60 rounded-2xl shadow-xl p-8 sm:p-10 space-y-7">
+          <div className="text-center space-y-4">
+            <div className="mx-auto flex justify-center px-1">
+              <img
+                src={PUBLIC_BRAND_LOGO}
+                alt="Telefoncular"
+                className="w-full max-w-[min(100%,280px)] h-auto object-contain"
+                width={280}
+                height={48}
+                decoding="async"
+              />
+            </div>
+            <div>
+              <h1 className="sr-only">{APP_BRAND}</h1>
+              <p className="text-muted-foreground text-sm">Giriş yapmak için bilgilerinizi girin</p>
+            </div>
           </div>
 
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div>
+          <form onSubmit={handleLogin} className="space-y-5">
+            <div className="space-y-1.5">
               <Label htmlFor="email">Kullanıcı Adı / E-posta</Label>
               <Input
                 id="email"
@@ -164,10 +171,9 @@ const Login = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={loading}
-                className="mt-1"
               />
             </div>
-            <div>
+            <div className="space-y-1.5">
               <Label htmlFor="password">Şifre</Label>
               <Input
                 id="password"
@@ -177,15 +183,14 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={loading}
-                className="mt-1"
               />
             </div>
-            <Button type="submit" data-testid="login-submit" className="w-full" disabled={loading}>
+            <Button type="submit" data-testid="login-submit" className="w-full h-11 text-sm font-bold shadow-sm" disabled={loading}>
               {loading ? 'Giriş Yapılıyor...' : <> <LogIn className="w-4 h-4 mr-2" /> Giriş Yap</>}
             </Button>
           </form>
         </div>
-        <p className="text-center text-xs text-muted-foreground mt-6">
+        <p className="text-center text-xs text-muted-foreground mt-6 font-medium">
           © {new Date().getFullYear()} {LOGIN_FOOTER_COPY}
         </p>
       </motion.div>

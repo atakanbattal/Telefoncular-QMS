@@ -8,3 +8,16 @@
 
 /
   Cache-Control: no-cache, no-store, must-revalidate, max-age=0
+
+# .ico uzantısı ama içerik PNG — doğru MIME (aksi halde sekme ikonu bozulur)
+/favicon.ico
+  Content-Type: image/png
+  X-Content-Type-Options: nosniff
+
+/favicon.png
+  Content-Type: image/png
+  X-Content-Type-Options: nosniff
+
+/apple-touch-icon.png
+  Content-Type: image/png
+  X-Content-Type-Options: nosniff

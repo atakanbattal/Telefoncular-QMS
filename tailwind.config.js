@@ -7,7 +7,6 @@ module.exports = {
     './src/**/*.{js,jsx}',
   ],
   theme: {
-    // Mobil için xs breakpoint eklendi
     screens: {
       'xs': '480px',
       'sm': '640px',
@@ -68,6 +67,13 @@ module.exports = {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+        xl: 'calc(var(--radius) + 4px)',
+        '2xl': 'calc(var(--radius) + 8px)',
+      },
+      boxShadow: {
+        'card': '0 1px 3px 0 rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.04)',
+        'card-hover': '0 10px 15px -3px rgb(0 0 0 / 0.06), 0 4px 6px -4px rgb(0 0 0 / 0.04)',
+        'elevated': '0 4px 6px -1px rgb(0 0 0 / 0.06), 0 2px 4px -2px rgb(0 0 0 / 0.04)',
       },
       keyframes: {
         'accordion-down': {
@@ -85,6 +91,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
+        headline: ['Manrope', 'Inter', 'sans-serif'],
       },
     },
   },

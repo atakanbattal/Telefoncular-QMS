@@ -89,7 +89,7 @@ export function MultiSelectPopover({
               selectedOptions.map((option) => (
                 <div
                   key={option.value}
-                  className="badge-content inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium bg-primary text-primary-foreground border border-primary/20 hover:bg-primary/90 transition-colors"
+                  className="badge-content inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-primary text-primary-foreground border border-primary/20 hover:bg-primary/90 transition-colors"
                 >
                   <span className="whitespace-normal break-words text-left leading-tight">{option.label}</span>
                   <button

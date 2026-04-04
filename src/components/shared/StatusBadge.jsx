@@ -8,53 +8,45 @@ import { Badge } from '@/components/ui/badge';
 import { isAfter, parseISO, isValid } from 'date-fns';
 import { cn } from '@/lib/utils';
 
-// Durum renk haritası
 const STATUS_CONFIG = {
-    // Genel durumlar
     'Açık': { variant: 'secondary', className: '' },
-    'Kapatıldı': { variant: 'default', className: 'bg-green-600 text-white hover:bg-green-700' },
-    'Kapalı': { variant: 'default', className: 'bg-green-600 text-white hover:bg-green-700' },
-    'Tamamlandı': { variant: 'default', className: 'bg-green-600 text-white hover:bg-green-700' },
-    'İşlemde': { variant: 'default', className: 'bg-yellow-500 text-white hover:bg-yellow-600' },
-    'Devam Ediyor': { variant: 'default', className: 'bg-yellow-500 text-white hover:bg-yellow-600' },
-    'Onay Bekliyor': { variant: 'default', className: 'bg-purple-500 text-white hover:bg-purple-600' },
+    'Kapatıldı': { variant: 'default', className: 'bg-emerald-500/15 text-emerald-700 border-transparent hover:bg-emerald-500/25' },
+    'Kapalı': { variant: 'default', className: 'bg-emerald-500/15 text-emerald-700 border-transparent hover:bg-emerald-500/25' },
+    'Tamamlandı': { variant: 'default', className: 'bg-emerald-500/15 text-emerald-700 border-transparent hover:bg-emerald-500/25' },
+    'İşlemde': { variant: 'default', className: 'bg-amber-500/15 text-amber-700 border-transparent hover:bg-amber-500/25' },
+    'Devam Ediyor': { variant: 'default', className: 'bg-amber-500/15 text-amber-700 border-transparent hover:bg-amber-500/25' },
+    'Onay Bekliyor': { variant: 'default', className: 'bg-purple-500/15 text-purple-700 border-transparent hover:bg-purple-500/25' },
     'Reddedildi': { variant: 'destructive', className: '' },
     'İptal': { variant: 'destructive', className: '' },
     'İptal Edildi': { variant: 'destructive', className: '' },
-    'Gecikmiş': { variant: 'default', className: 'bg-red-600 text-white animate-pulse' },
+    'Gecikmiş': { variant: 'default', className: 'bg-red-500/15 text-red-700 border-transparent animate-pulse' },
     
-    // Tedarikçi durumları
-    'Onaylı': { variant: 'default', className: 'bg-green-600 text-white' },
-    'Koşullu Onaylı': { variant: 'default', className: 'bg-yellow-500 text-white' },
-    'Askıya Alınmış': { variant: 'default', className: 'bg-orange-500 text-white' },
+    'Onaylı': { variant: 'default', className: 'bg-emerald-500/15 text-emerald-700 border-transparent' },
+    'Koşullu Onaylı': { variant: 'default', className: 'bg-amber-500/15 text-amber-700 border-transparent' },
+    'Askıya Alınmış': { variant: 'default', className: 'bg-orange-500/15 text-orange-700 border-transparent' },
     'Red': { variant: 'destructive', className: '' },
     
-    // Kalite durumları
-    'Uygun': { variant: 'default', className: 'bg-green-600 text-white' },
+    'Uygun': { variant: 'default', className: 'bg-emerald-500/15 text-emerald-700 border-transparent' },
     'Uygun Değil': { variant: 'destructive', className: '' },
-    'Koşullu Kabul': { variant: 'default', className: 'bg-yellow-500 text-white' },
+    'Koşullu Kabul': { variant: 'default', className: 'bg-amber-500/15 text-amber-700 border-transparent' },
     'Muayene Bekliyor': { variant: 'secondary', className: '' },
     
-    // Kaizen/İyileştirme durumları
     'Planlama': { variant: 'secondary', className: '' },
-    'Uygulama': { variant: 'default', className: 'bg-blue-500 text-white' },
-    'Doğrulama': { variant: 'default', className: 'bg-purple-500 text-white' },
-    'Standartlaştırma': { variant: 'default', className: 'bg-indigo-500 text-white' },
+    'Uygulama': { variant: 'default', className: 'bg-blue-500/15 text-blue-700 border-transparent' },
+    'Doğrulama': { variant: 'default', className: 'bg-purple-500/15 text-purple-700 border-transparent' },
+    'Standartlaştırma': { variant: 'default', className: 'bg-indigo-500/15 text-indigo-700 border-transparent' },
     
-    // Önem seviyeleri
     'Kritik': { variant: 'destructive', className: '' },
-    'Yüksek': { variant: 'default', className: 'bg-orange-500 text-white' },
-    'Orta': { variant: 'default', className: 'bg-yellow-500 text-white' },
+    'Yüksek': { variant: 'default', className: 'bg-orange-500/15 text-orange-700 border-transparent' },
+    'Orta': { variant: 'default', className: 'bg-amber-500/15 text-amber-700 border-transparent' },
     'Düşük': { variant: 'secondary', className: '' },
     
-    // Tedarikçi notları
-    'A': { variant: 'default', className: 'bg-green-600 text-white' },
-    'B': { variant: 'default', className: 'bg-blue-500 text-white' },
-    'C': { variant: 'default', className: 'bg-yellow-500 text-white' },
+    'A': { variant: 'default', className: 'bg-emerald-500/15 text-emerald-700 border-transparent' },
+    'B': { variant: 'default', className: 'bg-blue-500/15 text-blue-700 border-transparent' },
+    'C': { variant: 'default', className: 'bg-amber-500/15 text-amber-700 border-transparent' },
     'D': { variant: 'destructive', className: '' },
     
-    // Genel
-    'Aktif': { variant: 'default', className: 'bg-green-600 text-white' },
+    'Aktif': { variant: 'default', className: 'bg-emerald-500/15 text-emerald-700 border-transparent' },
     'Pasif': { variant: 'secondary', className: '' },
     'Taslak': { variant: 'outline', className: '' },
 };
@@ -80,7 +72,6 @@ const StatusBadge = ({
         return <Badge variant="outline">Bilinmiyor</Badge>;
     }
 
-    // Gecikme kontrolü
     const isOverdue = showOverdue
         && dueDate
         && !['Kapatıldı', 'Kapalı', 'Tamamlandı', 'Reddedildi', 'İptal', 'İptal Edildi'].includes(status)
@@ -90,7 +81,7 @@ const StatusBadge = ({
     if (isOverdue) {
         return (
             <Badge className={cn(
-                'bg-red-600 text-white animate-pulse',
+                'bg-red-500/15 text-red-700 border-transparent animate-pulse',
                 size === 'sm' && 'text-[10px] px-1.5 py-0',
                 size === 'lg' && 'text-sm px-3 py-1',
                 className,
@@ -121,5 +112,4 @@ const StatusBadge = ({
 
 export default StatusBadge;
 
-// Status konfigürasyonunu dışarıya aç (custom konfigürasyon için)
 export { STATUS_CONFIG };

@@ -566,7 +566,7 @@ const MainLayout = () => {
             <NCViewModal isOpen={ncViewState.isOpen} setIsOpen={(open) => setNcViewState(s => ({ ...s, isOpen: open }))} record={ncViewState.record} onEdit={handleOpenNCForm} onDownloadPDF={handleDownloadPDF} />
             <PdfViewerModal isOpen={pdfViewerState.isOpen} setIsOpen={(open) => setPdfViewerState(s => ({ ...s, isOpen: open }))} pdfUrl={pdfViewerState.url} title={pdfViewerState.title} />
 
-            <div className="min-h-screen bg-secondary overflow-x-hidden">
+            <div className="min-h-screen bg-background overflow-x-hidden">
                 <div className="flex relative">
                     <AnimatePresence>
                         {isSidebarOpen && (
@@ -597,17 +597,17 @@ const MainLayout = () => {
                     </AnimatePresence>
 
                     <div className="flex flex-1 flex-col min-w-0 overflow-hidden basis-0">
-                        <header className="mobile-sticky-header flex h-14 items-center gap-3 px-3 sm:px-4 md:px-6 lg:h-16 bg-card border-b border-border">
+                        <header className="mobile-sticky-header flex h-14 items-center gap-3 px-3 sm:px-4 md:px-6 lg:h-16 bg-card border-b border-border/60 shadow-sm">
                             <Button
                                 size="icon"
                                 variant="outline"
                                 onClick={() => setSidebarOpen(!isSidebarOpen)}
-                                className="h-10 w-10 shrink-0"
+                                className="h-10 w-10 shrink-0 rounded-lg"
                             >
                                 {isSidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
                                 <span className="sr-only">Menüyü Aç/Kapat</span>
                             </Button>
-                            <h1 className="flex-1 text-base font-semibold sm:text-lg md:text-xl lg:text-2xl text-foreground truncate">
+                            <h1 className="flex-1 text-base font-bold sm:text-lg md:text-xl lg:text-2xl text-foreground truncate font-headline tracking-tight">
                                 {moduleTitles[activeModule] || 'Ana Panel'}
                             </h1>
                         </header>

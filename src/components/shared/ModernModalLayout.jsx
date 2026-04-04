@@ -51,15 +51,15 @@ export const ModernModalLayout = ({
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className={`${maxWidth} w-[98vw] sm:w-[95vw] max-h-[95vh] overflow-hidden flex flex-col p-0`} hideCloseButton>
                 <DialogHeader className="sr-only"><DialogTitle>{title}</DialogTitle></DialogHeader>
-                <header className="bg-gradient-to-r from-primary to-blue-700 px-8 py-6 flex items-center justify-between text-white shrink-0">
+                <header className="bg-gradient-to-r from-primary to-blue-700 px-6 sm:px-8 py-5 sm:py-6 flex items-center justify-between text-white shrink-0">
                     <div className="flex items-center gap-4">
-                        <div className="bg-white/20 p-3 rounded-lg">{icon}</div>
+                        <div className="bg-white/20 p-3 rounded-xl backdrop-blur-sm">{icon}</div>
                         <div>
-                            <h1 className="text-xl font-bold tracking-tight">{title}</h1>
-                            <p className="text-xs text-blue-100 uppercase tracking-[0.15em] font-medium">{subtitle}</p>
+                            <h1 className="text-lg sm:text-xl font-bold tracking-tight font-headline">{title}</h1>
+                            <p className="text-[11px] text-blue-100 uppercase tracking-[0.15em] font-semibold">{subtitle}</p>
                         </div>
                         {badge && (
-                            <span className="px-3 py-1 bg-white/20 border border-white/30 text-white/90 text-xs font-bold rounded-full uppercase tracking-wider">
+                            <span className="px-3 py-1 bg-white/20 border border-white/30 text-white/90 text-xs font-bold rounded-full uppercase tracking-wider backdrop-blur-sm">
                                 {badge}
                             </span>
                         )}
@@ -72,20 +72,20 @@ export const ModernModalLayout = ({
 
                 {hasTwoColumns ? (
                     <div className="flex flex-1 min-h-0 overflow-hidden">
-                        <div className="flex-1 min-w-0 min-h-0 overflow-y-auto overflow-x-hidden border-r border-border py-5" style={{ scrollbarWidth: 'thin' }}>{children}</div>
-                        <div className="w-[360px] min-w-[320px] shrink-0 min-h-0 overflow-y-auto bg-muted/30 py-5" style={{ scrollbarWidth: 'thin' }}>{rightPanel}</div>
+                        <div className="flex-1 min-w-0 min-h-0 overflow-y-auto overflow-x-hidden border-r border-border/60 py-5" style={{ scrollbarWidth: 'thin' }}>{children}</div>
+                        <div className="w-[360px] min-w-[320px] shrink-0 min-h-0 overflow-y-auto bg-muted/20 py-5" style={{ scrollbarWidth: 'thin' }}>{rightPanel}</div>
                     </div>
                 ) : (
                     <div className="flex-1 min-h-0 overflow-y-auto">{children}</div>
                 )}
 
-                <footer className="flex shrink-0 justify-end gap-2 px-8 py-4 border-t border-border bg-muted/20">
+                <footer className="flex shrink-0 justify-end gap-3 px-6 sm:px-8 py-4 border-t border-border/60 bg-muted/20">
                     <div className="flex items-center gap-3 flex-1 justify-end">
                         {footerExtra}
-                        <Button type="button" variant="outline" onClick={onCancel}>
+                        <Button type="button" variant="outline" onClick={onCancel} className="rounded-lg">
                             {cancelLabel}
                         </Button>
-                        <Button type={formId ? 'submit' : 'button'} form={formId} onClick={!formId ? onSubmit : undefined} disabled={isSubmitting} className="text-base font-bold shadow-lg shadow-primary/20">
+                        <Button type={formId ? 'submit' : 'button'} form={formId} onClick={!formId ? onSubmit : undefined} disabled={isSubmitting} className="text-sm sm:text-base font-bold shadow-sm rounded-lg">
                             <CheckCircle className="w-4 h-4 mr-2" />
                             {isSubmitting ? 'Kaydediliyor...' : submitLabel}
                         </Button>
@@ -101,8 +101,8 @@ export const ModernModalLayout = ({
  */
 export const ModalSectionHeader = ({ children }) => (
     <div className="flex items-center gap-3 mb-4">
-        <h2 className="text-xs font-semibold text-foreground uppercase tracking-wider">{children}</h2>
-        <div className="h-px flex-1 bg-border" />
+        <h2 className="text-xs font-bold text-foreground uppercase tracking-wider font-headline">{children}</h2>
+        <div className="h-px flex-1 bg-border/60" />
     </div>
 );
 
@@ -111,7 +111,7 @@ export const ModalSectionHeader = ({ children }) => (
  */
 export const ModalField = ({ label, required, children }) => (
     <div className="space-y-1.5">
-        <label className="text-[11px] font-medium text-muted-foreground uppercase tracking-wide">
+        <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wide">
             {label} {required && <span className="text-destructive">*</span>}
         </label>
         {children}

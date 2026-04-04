@@ -2,21 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Add fadeIn animation */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* ============================================
    MOBILE RESPONSIVE UTILITIES
    ============================================ */
 
-/* Safe area insets for notched devices */
 :root {
   --safe-area-inset-top: env(safe-area-inset-top, 0px);
   --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
@@ -24,38 +18,33 @@
   --safe-area-inset-right: env(safe-area-inset-right, 0px);
 }
 
-/* Prevent horizontal overflow on mobile */
 html, body {
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
 }
 
-/* Better touch targets for mobile */
 @media (max-width: 768px) {
-  button, 
-  [role="button"], 
-  a, 
-  input, 
-  select, 
+  button,
+  [role="button"],
+  a,
+  input,
+  select,
   textarea {
     min-height: 44px;
   }
-  
-  /* Reduce animations on mobile for performance */
+
   *, *::before, *::after {
     animation-duration: 0.2s !important;
     transition-duration: 0.2s !important;
   }
 }
 
-/* Mobile overlay for sidebar */
 .mobile-sidebar-overlay {
-  @apply fixed inset-0 bg-black/50 z-30 lg:hidden;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  @apply fixed inset-0 bg-black/40 z-30 lg:hidden;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
-/* Mobile table scroll container */
 .mobile-table-container {
   @apply w-full overflow-x-auto -mx-4 px-4;
   -webkit-overflow-scrolling: touch;
@@ -67,13 +56,12 @@ html, body {
   }
 }
 
-/* Card view for mobile tables */
 .mobile-card-view {
   @apply block md:hidden space-y-3;
 }
 
 .mobile-card-item {
-  @apply bg-card rounded-lg p-4 border border-border shadow-sm;
+  @apply bg-card rounded-xl p-4 border border-border shadow-card;
 }
 
 .mobile-card-row {
@@ -88,7 +76,6 @@ html, body {
   @apply text-sm font-medium text-foreground text-right;
 }
 
-/* Hide on mobile / desktop utilities */
 .hide-on-mobile {
   @apply hidden md:block;
 }
@@ -97,12 +84,10 @@ html, body {
   @apply block md:hidden;
 }
 
-/* Mobile-friendly form layout */
 .mobile-form-grid {
   @apply grid grid-cols-1 gap-4 md:grid-cols-2;
 }
 
-/* Mobile modal adjustments */
 @media (max-width: 640px) {
   [role="dialog"] > div {
     max-height: calc(100vh - var(--safe-area-inset-top) - var(--safe-area-inset-bottom) - 2rem) !important;
@@ -112,7 +97,6 @@ html, body {
   }
 }
 
-/* Touch-friendly scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -123,86 +107,91 @@ html, body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted-foreground) / 0.3);
-  border-radius: 3px;
+  background: hsl(var(--muted-foreground) / 0.2);
+  border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--muted-foreground) / 0.5);
+  background: hsl(var(--muted-foreground) / 0.35);
 }
 
-/* Sticky header on mobile */
 .mobile-sticky-header {
   @apply sticky top-0 z-20 bg-background/95 backdrop-blur-sm border-b border-border;
   padding-top: var(--safe-area-inset-top);
 }
 
-/* Bottom safe area padding */
 .safe-bottom {
   padding-bottom: calc(var(--safe-area-inset-bottom) + 1rem);
 }
 
+/* ============================================
+   DESIGN SYSTEM — M3-INSPIRED LIGHT THEME
+   ============================================ */
+
 :root {
-  --background: 0 0% 100%; /* Beyaz */
-  --foreground: 222.2 47.4% 11.2%; /* Koyu Mavi/Siyah */
-  --card: 0 0% 100%; /* Kartlar için beyaz */
-  --card-foreground: 222.2 47.4% 11.2%;
+  --background: 213 40% 97%;
+  --foreground: 215 28% 12%;
+  --card: 0 0% 100%;
+  --card-foreground: 215 28% 12%;
   --popover: 0 0% 100%;
-  --popover-foreground: 222.2 47.4% 11.2%;
-  --primary: 217 91% 60%; /* Canlı Mavi */
-  --primary-foreground: 210 40% 98%;
-  --secondary: 210 40% 96.1%; /* Açık Gri */
-  --secondary-foreground: 222.2 47.4% 11.2%;
-  --muted: 210 40% 96.1%;
-  --muted-foreground: 215.4 16.3% 46.9%; /* Soluk Gri */
-  --accent: 210 40% 96.1%;
-  --accent-foreground: 222.2 47.4% 11.2%;
-  --destructive: 0 84.2% 60.2%; /* Canlı Kırmızı */
-  --destructive-foreground: 210 40% 98%;
-  --border: 210 40% 90%; /* Daha belirgin border */
-  --input: 210 40% 90%;
-  --ring: 217 91% 60%;
+  --popover-foreground: 215 28% 12%;
+  --primary: 220 100% 39%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 213 25% 95%;
+  --secondary-foreground: 215 28% 12%;
+  --muted: 213 25% 95%;
+  --muted-foreground: 215 14% 46%;
+  --accent: 213 30% 93%;
+  --accent-foreground: 215 28% 12%;
+  --destructive: 0 72% 41%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 213 25% 90%;
+  --input: 213 25% 88%;
+  --ring: 220 100% 39%;
   --radius: 0.75rem;
 
   --chart-1: 34.9 98.6% 72.9%;
-  --chart-2: 217 91% 60%;
-  --chart-3: 0 84.2% 60.2%;
-  --chart-4: 142.1 76.2% 36.3%;
+  --chart-2: 220 100% 39%;
+  --chart-3: 0 72% 41%;
+  --chart-4: 168 75% 34%;
   --chart-5: 262.1 83.3% 57.8%;
 }
 
 body {
-  @apply bg-secondary text-foreground;
+  @apply bg-background text-foreground;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Updated dashboard widget for light theme */
+/* ============================================
+   DASHBOARD WIDGETS
+   ============================================ */
+
 .dashboard-widget {
-  @apply bg-card text-card-foreground rounded-xl p-4 sm:p-5 shadow-sm border border-border transition-all duration-300;
+  @apply bg-card text-card-foreground rounded-xl p-4 sm:p-5 shadow-card border border-border/60 transition-all duration-300;
 }
 
 .dashboard-widget:hover {
-    @apply shadow-lg border-primary/50;
+  @apply shadow-card-hover border-primary/30;
 }
 
-/* Updated titles for better readability */
 .widget-title {
   @apply text-sm font-medium text-muted-foreground;
 }
 
 .widget-value {
-  @apply text-3xl font-bold text-foreground;
+  @apply text-3xl font-bold text-foreground font-headline;
 }
 
-/* Updated table styles for light theme - Mobile Responsive */
+/* ============================================
+   DATA TABLE STYLES
+   ============================================ */
+
 .data-table {
   @apply w-full border-collapse;
 }
 
-
-/* DF/8D table specific - override w-full */
 .data-table-wide {
   @apply border-collapse min-w-[600px];
   width: max-content !important;
@@ -210,17 +199,17 @@ body {
 }
 
 .data-table th {
-  @apply bg-secondary/50 px-3 py-2 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider border-b border-border;
+  @apply bg-muted/40 px-3 py-2.5 text-left text-[11px] font-semibold text-muted-foreground uppercase tracking-wider border-b border-border;
 }
 
 @media (min-width: 768px) {
   .data-table th {
-    @apply px-6 py-3;
+    @apply px-6 py-3.5;
   }
 }
 
 .data-table td {
-  @apply px-3 py-3 whitespace-nowrap text-sm text-foreground/90 border-b border-border/50;
+  @apply px-3 py-3 whitespace-nowrap text-sm text-foreground/90 border-b border-border/40;
 }
 
 @media (min-width: 768px) {
@@ -230,10 +219,9 @@ body {
 }
 
 .data-table tr:hover {
-  @apply bg-secondary;
+  @apply bg-accent/50;
 }
 
-/* Responsive table wrapper */
 .table-responsive {
   @apply w-full overflow-x-auto;
   -webkit-overflow-scrolling: touch;
@@ -248,22 +236,20 @@ body {
 }
 
 .search-input {
-  @apply w-full pl-10 pr-4 py-2 border border-input rounded-md shadow-sm focus:ring-2 focus:ring-ring focus:border-ring text-sm;
+  @apply w-full pl-10 pr-4 py-2.5 border border-input rounded-lg shadow-sm focus:ring-2 focus:ring-ring focus:border-ring text-sm bg-background;
 }
 
-/* Ensure search icon doesn't overlap with text */
 .search-box .search-input {
-  padding-left: 2.5rem; /* 40px - enough space for icon */
+  padding-left: 2.5rem;
 }
 
 .search-box {
   @apply relative;
 }
 
-/* Fix for search icons in search-box - ensure proper spacing */
 .search-box svg[class*="Search"],
 .search-box .lucide-search {
-  left: 0.625rem !important; /* 10px - consistent with pl-10 */
+  left: 0.625rem !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
   pointer-events: none;
@@ -271,22 +257,17 @@ body {
 }
 
 .status-indicator {
-    @apply px-2 py-1 text-xs font-semibold rounded-full inline-block;
+  @apply px-2.5 py-1 text-xs font-semibold rounded-full inline-flex items-center gap-1.5;
 }
 
-/* Fix for shadcn/ui Dialog scroll issue */
 [role='dialog'] [data-radix-scroll-area-viewport] {
-  max-height: 80vh; /* Adjust as needed */
+  max-height: 80vh;
   overflow-y: auto;
 }
 
-/* Global Print Style Overrides to remove URLs from PDFs */
 @media print {
-  /* Tarayıcı/ütüleyici kütüphanelerin eklediği "(href)" uzantılarını kapat */
   a[href]::after { content: "" !important; }
   a[href]::before { content: "" !important; }
-  /* Linkleri normal metin gibi göster */
   a, a:visited { color: inherit !important; text-decoration: none !important; }
-  /* Tooltip/title kaynaklı döküme düşebilecek metinleri engelle */
   [title]::after { content: "" !important; }
 }

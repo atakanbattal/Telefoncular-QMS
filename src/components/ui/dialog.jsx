@@ -16,7 +16,7 @@ const DialogOverlay = React.forwardRef(({ className, ...props }, ref) => (
   <DialogPrimitive.Overlay
     ref={ref}
     className={cn(
-      "fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+      "fixed inset-0 z-50 bg-black/60 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       className
     )}
     {...props}
@@ -30,21 +30,13 @@ const DialogContent = React.forwardRef(({ className, children, hideCloseButton =
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        // Temel modal stilleri
-        "fixed z-50 grid gap-3 sm:gap-4 border bg-background shadow-lg duration-200",
-        // Genişlik - varsayılan max-w-lg, bileşen seviyesinde override edilebilir (tailwind-merge sayesinde)
+        "fixed z-50 grid gap-3 sm:gap-4 border border-border/60 bg-background shadow-xl duration-200",
         "w-[calc(100%-1rem)] sm:w-auto sm:max-w-lg",
-        // Padding
-        "p-4 sm:p-6",
-        // Pozisyonlama - merkez (fullscreen için className ile override)
+        "p-5 sm:p-6",
         "left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]",
-        // Rounded
-        "rounded-lg",
-        // Maksimum yükseklik
+        "rounded-2xl",
         "max-h-[calc(100vh-2rem)] sm:max-h-[90vh]",
-        // Overflow
         "overflow-hidden",
-        // Animasyonlar
         "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
         className
       )}
@@ -52,7 +44,7 @@ const DialogContent = React.forwardRef(({ className, children, hideCloseButton =
     >
       {children}
       {!hideCloseButton && (
-        <DialogPrimitive.Close className="absolute right-3 top-3 sm:right-4 sm:top-4 rounded-full bg-muted/50 hover:bg-muted text-muted-foreground hover:text-foreground p-2 transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none touch-manipulation z-10">
+        <DialogPrimitive.Close className="absolute right-3 top-3 sm:right-4 sm:top-4 rounded-full bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground p-2 transition-all focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none touch-manipulation z-10">
           <X className="h-4 w-4 sm:h-5 sm:w-5" />
           <span className="sr-only">Kapat</span>
         </DialogPrimitive.Close>
@@ -67,7 +59,7 @@ const DialogHeader = ({
   ...props
 }) => (
   <div
-    className={cn("flex flex-col space-y-1 sm:space-y-1.5 text-center sm:text-left pr-8", className)}
+    className={cn("flex flex-col space-y-1.5 sm:space-y-2 text-center sm:text-left pr-8", className)}
     {...props}
   />
 )
@@ -78,7 +70,7 @@ const DialogFooter = ({
   ...props
 }) => (
   <div
-    className={cn("flex flex-col-reverse gap-2 sm:flex-row sm:justify-end sm:gap-2", className)}
+    className={cn("flex flex-col-reverse gap-2 sm:flex-row sm:justify-end sm:gap-3", className)}
     {...props}
   />
 )
@@ -87,7 +79,7 @@ DialogFooter.displayName = "DialogFooter"
 const DialogTitle = React.forwardRef(({ className, ...props }, ref) => (
   <DialogPrimitive.Title
     ref={ref}
-    className={cn("text-base sm:text-lg font-semibold leading-tight sm:leading-none tracking-tight", className)}
+    className={cn("text-base sm:text-lg font-bold leading-tight sm:leading-none tracking-tight font-headline", className)}
     {...props}
   />
 ))

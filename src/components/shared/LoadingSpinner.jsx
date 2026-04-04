@@ -28,13 +28,15 @@ const LoadingSpinner = ({
 
     return (
         <div className={cn(
-            'flex flex-col items-center justify-center gap-3',
+            'flex flex-col items-center justify-center gap-4',
             config.container,
             className,
         )}>
-            <Loader2 className={cn('animate-spin text-primary', config.icon)} />
+            <div className="relative">
+                <Loader2 className={cn('animate-spin text-primary', config.icon)} />
+            </div>
             {text && (
-                <p className={cn('text-muted-foreground', config.text)}>
+                <p className={cn('text-muted-foreground font-medium', config.text)}>
                     {text}
                 </p>
             )}

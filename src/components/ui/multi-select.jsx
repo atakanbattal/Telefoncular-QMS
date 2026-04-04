@@ -33,7 +33,7 @@ import React, { useState, useRef, useCallback } from 'react';
 
       return (
         <Command onKeyDown={handleKeyDown} className="overflow-visible bg-transparent">
-          <div className="group rounded-md border border-input px-3 py-2 text-sm ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
+          <div className="group rounded-lg border border-input px-3 py-2 text-sm ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
             <div className="flex flex-wrap gap-1">
               {Array.from(selected).map((val) => {
                 const option = options.find(opt => opt.value === val);
@@ -71,7 +71,7 @@ import React, { useState, useRef, useCallback } from 'react';
           </div>
           <div className="relative mt-2">
             {open && selectables.length > 0 ? (
-              <div className="absolute top-0 z-50 w-full rounded-md border bg-popover text-popover-foreground shadow-md outline-none animate-in">
+              <div className="absolute top-0 z-50 w-full rounded-xl border bg-popover text-popover-foreground shadow-lg outline-none animate-in">
                 <CommandList>
                   <CommandGroup className="h-full max-h-60 overflow-auto">
                     {selectables.map((option) => (
