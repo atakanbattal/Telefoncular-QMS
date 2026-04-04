@@ -18,17 +18,22 @@ import AuthProtected from '@/components/auth/AuthProtected';
 import MainLayout from '@/components/layout/MainLayout';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 
-/** index.html ile aynı sürüm — önbellek kırma; dosya gerçek PNG olmalı (JPEG .png uzantılı olmasın). */
-const FAVICON_PNG = '/favicon.png?v=44b2259b';
-const APPLE_ICON = '/apple-touch-icon.png?v=44b2259b';
+/** index.html ile aynı ?v= — önbellek kırma */
+const V = '?v=assets-final';
+const FAVICON_16 = `/favicon-16.png${V}`;
+const FAVICON_PNG = `/favicon.png${V}`;
+const FAVICON_ICO = `/favicon.ico${V}`;
+const APPLE_ICON = `/apple-touch-icon.png${V}`;
 
 function App() {
   return (
         <HelmetProvider>
             <Helmet>
+                <link rel="icon" type="image/png" sizes="16x16" href={FAVICON_16} />
                 <link rel="icon" type="image/png" sizes="128x128" href={FAVICON_PNG} />
                 <link rel="shortcut icon" type="image/png" href={FAVICON_PNG} />
-                <link rel="apple-touch-icon" href={APPLE_ICON} />
+                <link rel="icon" type="image/png" href={FAVICON_ICO} />
+                <link rel="apple-touch-icon" sizes="180x180" href={APPLE_ICON} />
             </Helmet>
             <ErrorBoundary>
             <AuthProvider>
