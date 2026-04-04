@@ -22,6 +22,10 @@
   Content-Type: image/png
   X-Content-Type-Options: nosniff
 
+/favicon-32.png
+  Content-Type: image/png
+  X-Content-Type-Options: nosniff
+
 /apple-touch-icon.png
   Content-Type: image/png
   X-Content-Type-Options: nosniff

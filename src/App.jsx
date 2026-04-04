@@ -1,5 +1,5 @@
 import React from 'react';
-import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { HelmetProvider } from 'react-helmet-async';
 import { Routes, Route } from 'react-router-dom';
 
 import { AuthProvider } from '@/contexts/SupabaseAuthContext';
@@ -18,23 +18,9 @@ import AuthProtected from '@/components/auth/AuthProtected';
 import MainLayout from '@/components/layout/MainLayout';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 
-/** index.html ile aynı ?v= — önbellek kırma */
-const V = '?v=assets-final';
-const FAVICON_16 = `/favicon-16.png${V}`;
-const FAVICON_PNG = `/favicon.png${V}`;
-const FAVICON_ICO = `/favicon.ico${V}`;
-const APPLE_ICON = `/apple-touch-icon.png${V}`;
-
 function App() {
   return (
         <HelmetProvider>
-            <Helmet>
-                <link rel="icon" type="image/png" sizes="16x16" href={FAVICON_16} />
-                <link rel="icon" type="image/png" sizes="128x128" href={FAVICON_PNG} />
-                <link rel="shortcut icon" type="image/png" href={FAVICON_PNG} />
-                <link rel="icon" type="image/png" href={FAVICON_ICO} />
-                <link rel="apple-touch-icon" sizes="180x180" href={APPLE_ICON} />
-            </Helmet>
             <ErrorBoundary>
             <AuthProvider>
                 <Routes>

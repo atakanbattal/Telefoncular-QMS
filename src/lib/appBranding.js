@@ -12,7 +12,7 @@ export const PDF_SYSTEM_FULL_NAME = 'Telefoncular Kalite Yönetim Sistemi';
 
 export const PDF_LOGO_ALT = 'Telefoncular';
 
-/** Wordmark — sidebar, giriş, PDF vb. Sekme ikonu: `public/favicon.png` + `favicon.ico` (gerçek dosya; SPA HTML’e düşmemeli). */
+/** Wordmark — sidebar, giriş, PDF vb. Sekme ikonu: yalnızca `index.html` (Helmet’te favicon yok). */
 export const PUBLIC_BRAND_LOGO = '/logo-wordmark.png';
 
 /**
